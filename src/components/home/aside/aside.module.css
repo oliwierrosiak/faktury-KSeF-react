@@ -46,7 +46,7 @@
     transform: scale(1.5) rotate(-180deg);
     fill: rgb(139, 136, 136);
     margin-right: .3rem;
-    transition: transform .3s ease-in-out;
+    transition: transform .3s ease-in-out, fill .3s ease;
 }
 .arrowRotated
 {
@@ -89,6 +89,7 @@
    border: 0;
    font-family: "Inter", sans-serif;
    cursor: pointer;
+   transition: background .3s ease;
 }
 .download
 {
