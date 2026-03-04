@@ -1,5 +1,6 @@
 import ArrowIcon from '../../../assets/svg/arrowIcon'
 import styles from './aside.module.css'
+import Search from './search/search'
 
 function Aside(props)
 {
@@ -10,9 +11,7 @@ function Aside(props)
             </div>
 
             <section className={styles.searchSection}>
-                <search>
-                    <input className={styles.input}></input>
-                </search>
+                <Search />
             </section>
 
             <div className={styles.line}></div>
