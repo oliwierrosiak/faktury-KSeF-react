@@ -16,11 +16,10 @@
 .arrow
 {
     position: absolute;
-    top:50%;
-    translate: 0 -50%;
-    width: 3rem;
-    height: 10rem;
-    border-radius: 0rem 2rem 2rem 0;
+    top:5rem;
+    width: 2rem;
+    height: 5rem;
+    border-radius: 0rem 1rem 1rem 0;
     left:100%;
     background-color: rgb(220, 220, 220);
     display: flex;
@@ -28,12 +27,16 @@
     align-items: center;
     cursor: pointer;
 }
+.arrow:hover>.arrowIcon
+{
+    fill: rgb(77, 77, 77);
+}
 .arrowIcon
 {
-    width: 3rem;
-    height: 3rem;
+    width: 2rem;
+    height: 2rem;
     transform: scale(1.5) rotate(-180deg);
-    fill: black;
+    fill: rgb(113, 113, 113);
     margin-right: .3rem;
     transition: transform .3s ease-in-out;
 }
