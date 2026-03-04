@@ -1,0 +1,15 @@
+.main
+{
+    background-color: rgb(187, 187, 187);
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left:25%;
+    right: 0;
+    z-index: 1;
+    transition: left .3s ease-in-out;
+}
+.mainFullWidth
+{
+   left:0;
+}
