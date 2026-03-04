@@ -6,7 +6,37 @@
 html
 {
     font-size: 1vw;
-    color: black;
+    color: #1F2937;
+
+    /* header fonts */
+
+    /* font-family: "Roboto Slab", serif; */
+    /* font-family: "Poppins", sans-serif; */
+
+    /* Content fonts */
+
+    /* font-family: "Roboto", sans-serif; */
+    /* font-family: "Inter", sans-serif; */
+    /* font-family: "Open Sans", sans-serif; */
+
+    /* primary colors */
+    /* color: #F9FAFB; */
+    /* color: #E5E7EB; */
+    /* color:#FFFFFF; */
+
+    /* text color */
+    /* color: #1F2937; */
+    /* color: #6B7280; */
+
+    /* btn colors */
+    /* color: #3B82F6; */
+    /* color: #60A5FA; */
+
+    /* color: #1E40AF; */
+    /* color: #1D4ED8; */
+
+    /* color: #10B981; */
+    /* color: #059669; */
 }
 body
 {

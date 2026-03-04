@@ -1,6 +1,6 @@
 .main
 {
-    background-color: rgb(187, 187, 187);
+    background-color: #F9FAFB;
     position: absolute;
     top:0;
     bottom: 0;
@@ -8,8 +8,20 @@
     right: 0;
     z-index: 1;
     transition: left .3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 4rem;
+    gap:2rem;
 }
 .mainFullWidth
 {
    left:0;
+}
+.header
+{
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    font-size: 2rem;
 }
