@@ -1,4 +1,6 @@
 import ArrowIcon from '../../../assets/svg/arrowIcon'
+import DownloadIcon from '../../../assets/svg/downloadIcon'
+import PDFIcon from '../../../assets/svg/pdfIcon'
 import styles from './aside.module.css'
 import Calender from './calender/calender'
 import Search from './search/search'
@@ -24,8 +26,14 @@ function Aside(props)
             <div className={styles.line}></div>
 
             <section className={styles.btnSection}>
-                <button className={`${styles.btn} ${styles.download}`}>Pobierz Faktury</button>
-                <button className={`${styles.btn} ${styles.generate}`}>Generuj PDF</button>
+                <button className={`${styles.btn} ${styles.download}`}>
+                    <DownloadIcon class={styles.btnSVG}/>
+                    Pobierz Faktury
+                    </button>
+                <button className={`${styles.btn} ${styles.generate}`}>
+                    <PDFIcon class={styles.btnSVG}/>
+                    Generuj PDF
+                </button>
             </section>
 
             

@@ -86,6 +86,15 @@
    font-family: "Inter", sans-serif;
    cursor: pointer;
    transition: background .3s ease;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap:.5rem;
+}
+.btnSVG
+{
+    width: 1.8rem;
+    height: 1.8rem;
 }
 .download
 {

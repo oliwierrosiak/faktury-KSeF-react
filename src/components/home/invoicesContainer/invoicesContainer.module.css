@@ -6,3 +6,36 @@
     border-radius: 2rem;
     border:.3rem solid #bec1c7;
 }
+.errorContainer
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap:1rem;
+}
+.errorSVG
+{
+    width: 5rem;
+    height: 5rem;
+    transform: scale(1.5);
+}
+.notFoundSVG
+{
+    width: 5rem;
+    height: 5rem;
+}
+.errorContainer>h2
+{
+    color: #6B7280;
+    font-size: 1.5rem;
+    font-weight: 900;
+    font-family: "Open Sans", sans-serif;
+    cursor: default;
+}
+.errorContainer>h2::selection
+{
+    background:none;
+}
