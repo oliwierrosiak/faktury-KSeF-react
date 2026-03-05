@@ -13,7 +13,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap:1rem;
 }
 .header>h2
 {
@@ -21,6 +20,13 @@
     font-weight: 900;
      font-family: "Roboto Slab";
      color: #1F2937;
+     width: 8rem;
+     text-align: center;
+     cursor: default;
+}
+.header>h2::selection
+{
+    background: none;
 }
 .arrow
 {
@@ -41,6 +47,10 @@
     font-weight: 600;
     color: #1F2937;;
     font-family: "Roboto", sans-serif;
+}
+.item::selection
+{
+    background: none;
 }
 .item:hover
 {
@@ -76,10 +86,10 @@
 }
 .arrow:hover>.arrowIcon
 {
-    fill: #808b9a;
+    fill: #6B7280; 
 }
 .arrowDisabled>.arrowIcon,
 .arrowDisabled:hover>.arrowIcon
 {
-    fill:  #6B7280;
+    fill:  #a3aab9;
 }
