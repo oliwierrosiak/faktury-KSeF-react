@@ -6,6 +6,7 @@
     grid-template-columns: 2rem auto 2rem;
     padding: .5rem;
     border-radius:2rem;
+    cursor: pointer;
 }
 .searchSVG
 {
@@ -29,6 +30,10 @@
     padding: 0 .6rem 0 .3rem;
     font-family: "Inter", sans-serif;
     color: #1F2937;
+}
+.input:focus
+{
+    cursor: text;
 }
 .input::placeholder
 {

@@ -1,5 +1,6 @@
 import ArrowIcon from '../../../assets/svg/arrowIcon'
 import styles from './aside.module.css'
+import Calender from './calender/calender'
 import Search from './search/search'
 
 function Aside(props)
@@ -17,6 +18,7 @@ function Aside(props)
             <div className={styles.line}></div>
 
             <section className={styles.calenderSection}>
+                <Calender />
             </section>
 
             <div className={styles.line}></div>
