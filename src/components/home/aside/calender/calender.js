@@ -1,16 +1,17 @@
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import ArrowIcon from '../../../../assets/svg/arrowIcon'
 import styles from './calender.module.css'
+import SelectedDateContext from '../../../../context/selectedDateContext'
 
 function Calender()
 {
     const date = new Date()
 
     const [year,setYear] = useState(2026)
-
     const [currentMonth,setCurrentMonth] = useState(date.getMonth())
-
     const [selectedMonth,setSelectedMonth] = useState(null)
+
+    const selectedDateContext = useContext(SelectedDateContext)
 
     const setNewYear = (e,dir) =>
     {
@@ -51,6 +52,13 @@ function Calender()
         }
         
     }
+
+    useEffect(()=>{
+        selectedDateContext.setDate({
+            month:selectedMonth,
+            year:year
+        })
+    },[selectedMonth])
 
     const checkSelect = (month) =>
     {
