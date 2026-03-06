@@ -1,0 +1,50 @@
+.item
+{
+    width: 100%;
+    padding: 1rem 2rem;
+    display: grid;
+    gap:2rem;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr .2rem 10rem 1.5rem;
+}
+.selectList
+{
+    width: 10rem;
+    height: 2rem;
+    border-radius: .5rem;
+    border:.25rem solid #6B7280;
+}
+.checkbox
+{
+    width: 1.5rem;
+    height: 1.5rem;
+    background: #E5E7EB;
+    border-radius: .5rem;
+    border:.25rem solid #6B7280;
+    cursor: pointer;
+}
+.checkboxSelected
+{
+    border:.25rem solid #1d70f4;
+    background: #81b5f5;
+}
+.line
+{
+    width: .2rem;
+    height: 100%;
+    background-color: #6B7280;
+    border-radius: 10px;
+}
+.element
+{
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: "Open Sans", sans-serif;
+    color: #1F2937;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+}
