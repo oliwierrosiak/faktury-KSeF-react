@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import styles from './invoicesContainer.module.css'
-import axios from 'axios'
+import axios, { all } from 'axios'
 import ApiAddress from '../../../ApiAddress'
 import InvoicesNotFound from '../../../assets/svg/invoicesNotFoundIcon'
 import ConnectionErrorIcon from '../../../assets/svg/connectionErrorIcon'
@@ -12,6 +12,7 @@ function InvoicesContainer(props)
     const [loading,setLoading] = useState(1)
     const [data,setData] = useState([])
     const [error,setError] = useState({type:null,info:''})
+    const [allItemsSelected,setAllItemsSelected] = useState(false)
 
     const getAllInvoices = async() =>
     {
@@ -39,6 +40,42 @@ function InvoicesContainer(props)
         getAllInvoices()
     },[])
 
+    const changeSelection = (el) =>
+    {
+        const localState = [...data]
+
+        if(el === "all")
+        {
+            localState.map(x=>x.select = !allItemsSelected)
+        }
+        else
+        {
+            const idx = localState.findIndex(x=>x._id === el)
+            localState[idx].select = !localState[idx].select
+        }
+        setData(localState)
+    }
+
+    useEffect(()=>{
+
+        if(!data.length)
+        {
+            setAllItemsSelected(false)
+            return
+        }
+
+        let allSelected = true
+        data.forEach(x=>{
+            if(!x.select)
+            {
+                allSelected = false
+            }
+        })
+
+        setAllItemsSelected(allSelected)
+
+    },[data])
+
     return(
         <div className={styles.container}>
 
@@ -54,7 +91,7 @@ function InvoicesContainer(props)
                     <div className={styles.topBarElement}>Numer Faktury</div>
                     <div className={styles.topBarElement}>Data Wystawienia</div>
                     <div className={styles.topBarElement}>Kwota Brutto</div>
-                    <button className={styles.checkAll}>Zaznacz Wszystkie</button>
+                    <button className={styles.checkAll} onClick={e=>changeSelection('all')}>{allItemsSelected?"Odznacz Wszystkie":"Zaznacz Wszystkie"}</button>
                 </div>}
 
                 {error.type ?
@@ -68,7 +105,7 @@ function InvoicesContainer(props)
                 </div>
                 :
                 <ul className={styles.invoicesList}>
-                    {data.map(x=><InvoiceElement key={x._id} {...x}/>)}
+                    {data.map(x=><InvoiceElement key={x._id} changeSelection={changeSelection} {...x}/>)}
                 </ul>
                 }
             </>}

@@ -3,7 +3,6 @@ import styles from './invoiceElement.module.css'
 
 function InvoiceElement(props)
 {
-    const [selected,setSelected] = useState(false)
 
     return(
         <li className={styles.item}>
@@ -24,7 +23,7 @@ function InvoiceElement(props)
             <ul className={styles.selectList}>
             </ul>
 
-            <div onClick={e=>setSelected(!selected)} className={`${styles.checkbox} ${selected?styles.checkboxSelected:''}`}></div>
+            <div onClick={e=>props.changeSelection(props._id)} className={`${styles.checkbox} ${props.select?styles.checkboxSelected:''}`}></div>
         </li>
     )
 }
