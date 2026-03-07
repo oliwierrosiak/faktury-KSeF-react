@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import styles from './invoicesContainer.module.css'
 import axios, { all } from 'axios'
 import ApiAddress from '../../../ApiAddress'
@@ -6,6 +6,7 @@ import InvoicesNotFound from '../../../assets/svg/invoicesNotFoundIcon'
 import ConnectionErrorIcon from '../../../assets/svg/connectionErrorIcon'
 import InvoiceElement from './invoiceElement/invoiceElement'
 import LoadingIcon from '../../../assets/svg/loadingIcon'
+import SomeInvoiceSelectedContext from '../../../context/someInvoiceSelectedContext'
 
 function InvoicesContainer(props)
 {
@@ -13,6 +14,8 @@ function InvoicesContainer(props)
     const [data,setData] = useState([])
     const [error,setError] = useState({type:null,info:''})
     const [allItemsSelected,setAllItemsSelected] = useState(false)
+
+    const someInvoiceSelectedContext = useContext(SomeInvoiceSelectedContext)
 
     const getAllInvoices = async() =>
     {
@@ -71,15 +74,18 @@ function InvoicesContainer(props)
             setAllItemsSelected(false)
             return
         }
-
+        let someInvoiceSelected = false
         let allSelected = true
         data.forEach(x=>{
             if(!x.select)
             {
                 allSelected = false
+            }else
+            {
+                someInvoiceSelected = true
             }
         })
-
+        someInvoiceSelectedContext.setSomeInvoiceSelected(someInvoiceSelected)
         setAllItemsSelected(allSelected)
 
     },[data])

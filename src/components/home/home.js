@@ -3,6 +3,7 @@ import Aside from './aside/aside'
 import styles from './home.module.css'
 import Main from './main/main'
 import SelectedDateContext from '../../context/selectedDateContext'
+import SomeInvoiceSelectedContext from '../../context/someInvoiceSelectedContext'
 
 function Home()
 {
@@ -10,6 +11,13 @@ function Home()
         month:null,
         year:new Date().getFullYear()
     })
+
+    const [someInvoiceSelected,setSomeInvoiceSelected] = useState(false)
+
+    useEffect(()=>
+    {
+        console.log(someInvoiceSelected)
+    },[someInvoiceSelected])
 
     const showAsideSetter = () =>
     {
@@ -24,12 +32,14 @@ function Home()
     },[showAside])
 
     return(
+        <SomeInvoiceSelectedContext.Provider value={{someInvoiceSelected,setSomeInvoiceSelected}}>
         <SelectedDateContext.Provider value={{date,setDate}}>
         <div className={styles.container}>
             <Aside showAside={showAside} setShowAside={setShowAside}/>
             <Main showAside={showAside}/>
         </div>
         </SelectedDateContext.Provider>
+        </SomeInvoiceSelectedContext.Provider>
     )
 }
 

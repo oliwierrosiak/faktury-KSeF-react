@@ -117,3 +117,8 @@
     background: #10B981;
     background:#1D4ED8;
 }
+.noneInvoiceSelected
+{
+    background-color: #77797e !important;
+    cursor: default;
+}
