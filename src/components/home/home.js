@@ -14,11 +14,6 @@ function Home()
 
     const [someInvoiceSelected,setSomeInvoiceSelected] = useState(false)
 
-    useEffect(()=>
-    {
-        console.log(someInvoiceSelected)
-    },[someInvoiceSelected])
-
     const showAsideSetter = () =>
     {
         const showAside = JSON.parse(localStorage.getItem('asideShow'))

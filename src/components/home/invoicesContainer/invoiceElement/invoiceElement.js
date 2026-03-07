@@ -1,5 +1,6 @@
 import { useEffect, useId, useState } from 'react'
 import styles from './invoiceElement.module.css'
+import { useNavigate } from 'react-router-dom'
 
 function InvoiceElement(props)
 {
@@ -7,6 +8,8 @@ function InvoiceElement(props)
     const [displaySelectionList,setDisplaySelectionList] = useState(false)
 
     const id = useId()
+
+    const navigate = useNavigate()
 
     const windowClick = (e) =>
     {
@@ -37,8 +40,17 @@ function InvoiceElement(props)
         }
     }
 
+    const redirection = (e) =>
+    {
+        const el = e.target
+        if(!el.classList.contains(styles.selectionFiled) && el.tagName != "H2" && !el.classList.contains(styles.selectListItem) && !el.classList.contains(styles.checkbox))
+        {
+            navigate(`/invoice/${props._id}`)
+        }
+    }
+
     return(
-        <li className={`${styles.item} ${props.action === "notRecord"?styles.overlineItems:''}`}>
+        <li onClick={redirection} className={`${styles.item} ${props.action === "notRecord"?styles.overlineItems:''}`}>
             <div className={styles.element}>
                 {props.Fa.NumerFaktury}
             </div>
@@ -56,9 +68,9 @@ function InvoiceElement(props)
             <div className={styles.selectionFiled} id={id} onClick={e=>setDisplaySelectionList(!displaySelectionList)}>
                 <h2 className={styles.selectionFiledHeader}>{selectionHeaderSetter()}</h2>
                 <ul className={`${styles.selectList} ${displaySelectionList?styles.selectListDisplay:''}`}>
-                    <li onClick={e=>props.changeInvoiceAction(props._id,null)}>--Wybierz Akcję--</li>
-                    <li onClick={e=>props.changeInvoiceAction(props._id,'notRecord')}>Nie Księgować</li>
-                    <li onClick={e=>props.changeInvoiceAction(props._id,'cost')}>Koszt</li>
+                    <li className={styles.selectListItem} onClick={e=>props.changeInvoiceAction(props._id,null)}>--Wybierz Akcję--</li>
+                    <li onClick={e=>props.changeInvoiceAction(props._id,'notRecord')} className={styles.selectListItem}>Nie Księgować</li>
+                    <li className={styles.selectListItem} onClick={e=>props.changeInvoiceAction(props._id,'cost')}>Koszt</li>
                 </ul>
             </div>
 
