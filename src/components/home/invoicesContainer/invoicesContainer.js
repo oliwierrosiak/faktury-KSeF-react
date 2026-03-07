@@ -56,8 +56,16 @@ function InvoicesContainer(props)
         setData(localState)
     }
 
-    useEffect(()=>{
+    const changeInvoiceAction = (el,action) =>
+    {   
+        const localState = [...data]
 
+        const idx = localState.findIndex(x=>x._id === el)
+        localState[idx].action = action
+        setData(localState)
+    }
+
+    useEffect(()=>{
         if(!data.length)
         {
             setAllItemsSelected(false)
@@ -105,7 +113,7 @@ function InvoicesContainer(props)
                 </div>
                 :
                 <ul className={styles.invoicesList}>
-                    {data.map(x=><InvoiceElement key={x._id} changeSelection={changeSelection} {...x}/>)}
+                    {data.map(x=><InvoiceElement key={x._id} changeSelection={changeSelection} changeInvoiceAction={changeInvoiceAction} {...x}/>)}
                 </ul>
                 }
             </>}
