@@ -85,3 +85,16 @@
     color: #60A5FA;
     text-decoration: underline .1rem #60A5FA;
 }
+.loadingContainer
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loading
+{
+    width: 5rem;
+    height: 5rem;
+}

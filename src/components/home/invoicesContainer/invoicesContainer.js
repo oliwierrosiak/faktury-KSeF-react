@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import styles from './invoicesContainer.module.css'
 import axios from 'axios'
 import ApiAddress from '../../../ApiAddress'
 import InvoicesNotFound from '../../../assets/svg/invoicesNotFoundIcon'
 import ConnectionErrorIcon from '../../../assets/svg/connectionErrorIcon'
 import InvoiceElement from './invoiceElement/invoiceElement'
+import LoadingIcon from '../../../assets/svg/loadingIcon'
 
 function InvoicesContainer(props)
 {
+    const [loading,setLoading] = useState(1)
     const [data,setData] = useState([])
     const [error,setError] = useState({type:null,info:''})
 
@@ -17,10 +19,11 @@ function InvoicesContainer(props)
         {
             const response = await axios.get(`${ApiAddress}/getAllInvoices`)
             setData(response.data)
-            console.log(response.data)
+            setLoading(false)
         }
         catch(ex)
         {
+            setLoading(false)
             if(ex.status === 404)
             {
                 setError({type:404,info:'Nie znaleziono faktur'})
@@ -39,26 +42,36 @@ function InvoicesContainer(props)
     return(
         <div className={styles.container}>
 
-            {!error.type && <div className={styles.topMenu}>
-                <div className={styles.topBarElement}>Numer Faktury</div>
-                <div className={styles.topBarElement}>Data Wystawienia</div>
-                <div className={styles.topBarElement}>Kwota Brutto</div>
-                <button className={styles.checkAll}>Zaznacz Wszystkie</button>
-            </div>}
-
-            {error.type ? <div className={styles.errorContainer}>
-                {error.type === 404?
-                <InvoicesNotFound class={styles.notFoundSVG}/>
-                :
-                <ConnectionErrorIcon class={styles.errorSVG}/>
-                }
-                <h2>{error.info}</h2>    
+            {loading?
+            <div className={styles.loadingContainer}>
+                <div className={styles.loading}>
+                    <LoadingIcon />
+                </div>
             </div>
             :
-            <ul className={styles.invoicesList}>
-                {data.map(x=><InvoiceElement key={x._id} {...x}/>)}
-            </ul>
-            }
+            <>
+                {!error.type && <div className={styles.topMenu}>
+                    <div className={styles.topBarElement}>Numer Faktury</div>
+                    <div className={styles.topBarElement}>Data Wystawienia</div>
+                    <div className={styles.topBarElement}>Kwota Brutto</div>
+                    <button className={styles.checkAll}>Zaznacz Wszystkie</button>
+                </div>}
+
+                {error.type ?
+                <div className={styles.errorContainer}>
+                    {error.type === 404?
+                    <InvoicesNotFound class={styles.notFoundSVG}/>
+                    :
+                    <ConnectionErrorIcon class={styles.errorSVG}/>
+                    }
+                    <h2>{error.info}</h2>    
+                </div>
+                :
+                <ul className={styles.invoicesList}>
+                    {data.map(x=><InvoiceElement key={x._id} {...x}/>)}
+                </ul>
+                }
+            </>}
         </div>
     )
 }
