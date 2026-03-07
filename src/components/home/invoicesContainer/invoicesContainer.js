@@ -1,6 +1,6 @@
-import { useContext, useEffect, useLayoutEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styles from './invoicesContainer.module.css'
-import axios, { all } from 'axios'
+import axios from 'axios'
 import ApiAddress from '../../../ApiAddress'
 import InvoicesNotFound from '../../../assets/svg/invoicesNotFoundIcon'
 import ConnectionErrorIcon from '../../../assets/svg/connectionErrorIcon'
@@ -59,13 +59,29 @@ function InvoicesContainer(props)
         setData(localState)
     }
 
+    const sendInvoiceState = async(id,action) =>
+    {
+        try
+        {
+            const response = await axios.post(`${ApiAddress}/invoiceActionUpdate`,{
+                id,
+                action
+            })
+            console.log(response)
+        }
+        catch(ex)
+        {
+            console.log(ex)
+        }
+    }
+
     const changeInvoiceAction = (el,action) =>
     {   
         const localState = [...data]
-
         const idx = localState.findIndex(x=>x._id === el)
         localState[idx].action = action
         setData(localState)
+        sendInvoiceState(el,action)
     }
 
     useEffect(()=>{
