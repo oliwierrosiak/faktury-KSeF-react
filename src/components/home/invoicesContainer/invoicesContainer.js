@@ -7,6 +7,7 @@ import ConnectionErrorIcon from '../../../assets/svg/connectionErrorIcon'
 import InvoiceElement from './invoiceElement/invoiceElement'
 import LoadingIcon from '../../../assets/svg/loadingIcon'
 import SomeInvoiceSelectedContext from '../../../context/someInvoiceSelectedContext'
+import SelectedDateContext from '../../../context/selectedDateContext'
 
 function InvoicesContainer(props)
 {
@@ -15,12 +16,14 @@ function InvoicesContainer(props)
     const [error,setError] = useState({type:null,info:''})
     const [allItemsSelected,setAllItemsSelected] = useState(false)
     const [invoicesMaxLength,setInvoicesMaxLength] = useState(1)
-    const displayPagination = useRef(true)
     const [displayPaginationState,setDisplayPaginationState] = useState(true)
+    const dateFilter = useRef('all')
+    const displayPagination = useRef(true)
     const pagination = useRef(0)
-    let blockRepeatPagination = useRef(false)
+    const blockRepeatPagination = useRef(false)
 
     const someInvoiceSelectedContext = useContext(SomeInvoiceSelectedContext)
+    const dateContext = useContext(SelectedDateContext)
 
     const listRef = useRef()
     const scrollPagination = useRef()
@@ -33,7 +36,8 @@ function InvoicesContainer(props)
             {
                 return
             }
-            const response = await axios.get(`${ApiAddress}/getAllInvoices?skip=${pagination.current}`)
+            console.log(dateFilter)
+            const response = await axios.get(`${ApiAddress}/getAllInvoices?skip=${pagination.current}&&date=${dateFilter.current}`)
             setData(prev=>[...prev,...response.data.invoices])
             if(response.data.maxLength)
             {
@@ -57,8 +61,26 @@ function InvoicesContainer(props)
     }
 
     useEffect(()=>{
+            setData(prev=>[])
+            setLoading(true)
+            pagination.current = 0
+            displayPagination.current = true
+            blockRepeatPagination.current = true
+            if(dateContext.date.month !== null && dateContext.date.year)
+            {
+                dateFilter.current= `${dateContext.date.year}-${dateContext.date.month+1}-01`
+
+            }
+            else
+            {
+                dateFilter.current = 'all'
+            }
+    },[dateContext.date])
+
+    useEffect(()=>{
         getAllInvoices()
-    },[])
+    },[dateFilter.current])
+
 
     const changeSelection = (el) =>
     {
@@ -174,7 +196,7 @@ function InvoicesContainer(props)
                     <div className={styles.topBarElement}>Numer Faktury</div>
                     <div className={styles.topBarElement}>Data Wystawienia</div>
                     <div className={styles.topBarElement}>Kwota Brutto</div>
-                    <button className={styles.checkAll} onClick={e=>changeSelection('all')}>{allItemsSelected?"Odznacz Wszystkie":"Zaznacz Wszystkie"}</button>
+                    <button className={styles.checkAll} onClick={e=>changeSelection('all')}>{allItemsSelected?`Odznacz Wszystkie (${data.length})`:`Zaznacz Wszystkie (${data.length})`}</button>
                 </div>}
 
                 {error.type ?
