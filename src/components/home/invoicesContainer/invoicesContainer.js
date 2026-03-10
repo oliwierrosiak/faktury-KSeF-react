@@ -15,36 +15,24 @@ function InvoicesContainer(props)
     const [data,setData] = useState([])
     const [error,setError] = useState({type:null,info:''})
     const [allItemsSelected,setAllItemsSelected] = useState(false)
-    const [invoicesMaxLength,setInvoicesMaxLength] = useState(1)
-    const [displayPaginationState,setDisplayPaginationState] = useState(true)
-    const dateFilter = useRef('all')
-    const displayPagination = useRef(true)
-    const pagination = useRef(0)
-    const blockRepeatPagination = useRef(false)
+    // const dateFilter = useRef('all')
+    const [dateFilter,setDateFilter] = useState('all')
+
 
     const someInvoiceSelectedContext = useContext(SomeInvoiceSelectedContext)
     const dateContext = useContext(SelectedDateContext)
 
     const listRef = useRef()
-    const scrollPagination = useRef()
 
-    const getAllInvoices = async() =>
+    const getInvoices = async() =>
     {
         try
         {
-            if(invoicesMaxLength === data.length)
-            {
-                return
-            }
-            console.log(dateFilter)
-            const response = await axios.get(`${ApiAddress}/getAllInvoices?skip=${pagination.current}&&date=${dateFilter.current}`)
-            setData(prev=>[...prev,...response.data.invoices])
-            if(response.data.maxLength)
-            {
-                setInvoicesMaxLength(response.data.maxLength)
-            }
-            blockRepeatPagination.current = false
+            const response = await axios.get(`${ApiAddress}/getInvoices?date=${dateFilter}`)
+            setData(prev=>[...prev,...response.data])
+            console.log(response.data)
             setLoading(false)
+            setError({type:null,info:''})
         }
         catch(ex)
         {
@@ -61,25 +49,23 @@ function InvoicesContainer(props)
     }
 
     useEffect(()=>{
-            setData(prev=>[])
-            setLoading(true)
-            pagination.current = 0
-            displayPagination.current = true
-            blockRepeatPagination.current = true
-            if(dateContext.date.month !== null && dateContext.date.year)
-            {
-                dateFilter.current= `${dateContext.date.year}-${dateContext.date.month+1}-01`
-
-            }
-            else
-            {
-                dateFilter.current = 'all'
-            }
+        setData([])
+        if(dateContext.date.month !== null && dateContext.date.year)
+        {
+            setDateFilter(`${dateContext.date.year}-${dateContext.date.month+1}-01`)
+        }
+        else
+        {
+            setDateFilter('all')
+        }
+            
     },[dateContext.date])
-
+    
     useEffect(()=>{
-        getAllInvoices()
-    },[dateFilter.current])
+        setTimeout(() => {
+            getInvoices()
+        }, 50);
+    },[dateFilter])
 
 
     const changeSelection = (el) =>
@@ -123,12 +109,7 @@ function InvoicesContainer(props)
 
     useEffect(()=>{
 
-        if(data.length === invoicesMaxLength)
-        {
-            displayPagination.current = false
-            setDisplayPaginationState(false)
-        }
-
+        console.log(data)
         if(!data.length)
         {
             setAllItemsSelected(false)
@@ -150,36 +131,6 @@ function InvoicesContainer(props)
 
     },[data])
 
-    const checkPagination = () =>
-    {
-        if(displayPagination.current && listRef.current.scrollTop+listRef.current.clientHeight >= listRef.current.scrollHeight-listRef.current.clientHeight * 0.05)
-        {
-            if(!blockRepeatPagination.current)
-            {
-                pagination.current = pagination.current+1
-                blockRepeatPagination.current = true
-                getAllInvoices()
-            }
-        }
-    }
-
-    useEffect(()=>{
-        if(!loading && !error.type)
-        {
-            listRef.current.addEventListener('scroll',checkPagination)
-        }
-    },[loading])
-
-    useEffect(()=>{
-        if(!loading && data.length)
-        {
-            if(listRef.current.scrollHeight <= listRef.current.clientHeight)
-            {
-                pagination.current +=1
-                getAllInvoices()
-            }
-        }
-    },[loading,data])
 
     return(
         <div className={styles.container}>
@@ -211,9 +162,6 @@ function InvoicesContainer(props)
                 :
                 <ul ref={listRef} className={styles.invoicesList}>
                     {data.map(x=><InvoiceElement key={x._id} changeSelection={changeSelection} changeInvoiceAction={changeInvoiceAction} {...x}/>)}
-                    {displayPaginationState&&<li ref={scrollPagination} className={styles.scrollLoading}>
-                        <LoadingIcon />
-                    </li>}
                 </ul>
                 }
             </>}
