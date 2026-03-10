@@ -69,7 +69,7 @@ function Search(props)
             </button>
 
             <ul className={`${styles.propositions} ${propositions.length != 0?styles.displayProposition:''}`}>
-                {propositions.map(x=><PropositionsItem key={x._id} {...x.Fa}/>)}    
+                {propositions.map(x=><PropositionsItem key={x._id} id={x._id} {...x.Fa}/>)}    
             </ul>
 
         </search>
