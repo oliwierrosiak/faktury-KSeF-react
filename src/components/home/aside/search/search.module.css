@@ -7,6 +7,7 @@
     padding: .5rem;
     border-radius:2rem;
     cursor: pointer;
+    position: relative;
 }
 .searchSVG
 {
@@ -65,4 +66,42 @@
 .showClearSearch:hover>.cancelIconSVG
 {
     fill: #3a3a3b;
+}
+.propositions
+{
+    position: absolute;
+    top:120%;
+    left:0;
+    right: 0;
+    background-color: #bec1c7;
+    border-radius:1rem;
+    transform: scale(0);
+    opacity: 0;
+    transform-origin: top;
+    transition: all .3s ease-out;
+    z-index: 2;
+    list-style-type: none;
+    max-height: 10rem;
+    overflow: auto;
+    padding: .5rem 0;
+}
+.propositions::-webkit-scrollbar
+{
+    height: 0;
+    width: .4rem;
+}
+.propositions::-webkit-scrollbar-thumb
+{
+    background-color: #6B7280;
+    border-radius: 10px;
+}
+.propositions::-webkit-scrollbar-button
+{
+    width: .8rem;
+    height: .8zrem;
+}
+.displayProposition
+{
+    transform: scale(1);
+    opacity: 1;
 }

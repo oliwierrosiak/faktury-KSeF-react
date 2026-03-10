@@ -30,7 +30,6 @@ function InvoicesContainer(props)
         {
             const response = await axios.get(`${ApiAddress}/getInvoices?date=${dateFilter}`)
             setData(prev=>[...prev,...response.data])
-            console.log(response.data)
             setLoading(false)
             setError({type:null,info:''})
         }
@@ -108,8 +107,6 @@ function InvoicesContainer(props)
     }
 
     useEffect(()=>{
-
-        console.log(data)
         if(!data.length)
         {
             setAllItemsSelected(false)
