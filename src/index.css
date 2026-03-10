@@ -41,6 +41,7 @@ html
 body
 {
     height: 100svh;
+    background-color: #F9FAFB;
 }
 
 .loadingIcon
