@@ -7,6 +7,7 @@
     gap:6%;
     align-items: center;
     justify-items: center;
+    cursor: pointer;
 }
 .item
 {
@@ -19,7 +20,6 @@
     font-size: 1rem;
     font-weight: 700;
     font-family: "Inter", sans-serif;
-    cursor: pointer;
 }
 .li::selection
 {
@@ -27,5 +27,5 @@
 }
 .li:hover>.item
 {
-    color: #1F2937;
+    color: #2474f4; 
 }

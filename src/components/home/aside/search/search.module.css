@@ -84,6 +84,7 @@
     max-height: 10rem;
     overflow: auto;
     padding: .5rem 0;
+    cursor: default;
 }
 .propositions::-webkit-scrollbar
 {
@@ -98,10 +99,33 @@
 .propositions::-webkit-scrollbar-button
 {
     width: .8rem;
-    height: .8zrem;
+    height: .8rem;
 }
 .displayProposition
 {
     transform: scale(1);
     opacity: 1;
+}
+.propositionError
+{
+    width: 100%;
+   
+    padding: 1.2rem .5rem;
+    color: #6B7280;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:1rem;
+}
+.propositionError>h2
+{
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: "Inter", sans-serif;
+}
+.invoicesNotFound
+{
+    width: 1.8rem;
+    height: 1.8rem;
 }

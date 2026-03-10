@@ -7,7 +7,7 @@ function Calender()
 {
     const date = new Date()
 
-    const [year,setYear] = useState(2026)
+    const [year,setYear] = useState(date.getFullYear())
     const [currentMonth,setCurrentMonth] = useState(date.getMonth())
     const [selectedMonth,setSelectedMonth] = useState(null)
 
