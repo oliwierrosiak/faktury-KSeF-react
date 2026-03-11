@@ -42,7 +42,6 @@ function Search(props)
         try
         {
             const response = await axios.get(`${ApiAddress}/search?query=${searchValue}`)
-            console.log(response.data)
             setPropositions(response.data)
             setPropositionsError(false)
             setDisplayProposition(true)
@@ -96,7 +95,7 @@ function Search(props)
             </button>
 
             <ul className={`${styles.propositions} ${displayProposition?styles.displayProposition:''}`}>
-                {propositions.map(x=><PropositionsItem key={x._id} id={x._id} {...x.Fa}/>)}
+                {propositions.map(x=><PropositionsItem key={x._id} id={x._id} {...x}/>)}
                 {propositionsError && <li className={styles.propositionError}>
                     <InvoicesNotFound class={styles.invoicesNotFound} />
                     <h2>Nie znaleziono wyników</h2>

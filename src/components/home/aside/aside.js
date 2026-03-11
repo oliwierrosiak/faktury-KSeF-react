@@ -29,7 +29,8 @@ function Aside(props)
     
         try
         {
-            const response = await axios.get(`${ApiAddress}/downloadInvoices2`)
+            const response = await axios.get(`${ApiAddress}/downloadInvoices`)
+            console.log(response)
         }
         catch(ex)
         {

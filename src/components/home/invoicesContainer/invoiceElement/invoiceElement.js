@@ -52,15 +52,15 @@ function InvoiceElement(props)
     return(
         <li onClick={redirection} className={`${styles.item} ${props.action === "notRecord"?styles.overlineItems:''}`}>
             <div className={styles.element}>
-                {props.Fa.NumerFaktury}
+                {props.invoiceNumber}
             </div>
 
             <div className={styles.element}>
-                {props.Fa.DataWystawienia}
+                {props.issueDate}
             </div>
 
             <div className={styles.element}>
-                {props.Podsumowanie.Brutto} {props.Fa.Waluta}
+                {props.grossAmount} {props.currency}
             </div>
 
             <div className={styles.line}></div>
