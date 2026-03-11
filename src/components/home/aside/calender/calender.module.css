@@ -7,6 +7,10 @@
     gap:1.5rem 1rem;
     padding-bottom: 1rem;
 }
+.containerLoading>div
+{
+    cursor: default !important;
+}
 .header
 {
     grid-column: 1/3;
@@ -33,6 +37,15 @@
     width: 2rem;
     height: 2rem;
     cursor: pointer;
+}
+.arrowWhileLoading
+{
+    cursor: default !important;
+}
+.arrowWhileLoading>.arrowIcon,
+.arrowWhileLoading:hover>.arrowIcon
+{
+    fill:#a3aab9 !important;
 }
 .item
 {

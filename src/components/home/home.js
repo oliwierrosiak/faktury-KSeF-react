@@ -4,6 +4,7 @@ import styles from './home.module.css'
 import Main from './main/main'
 import SelectedDateContext from '../../context/selectedDateContext'
 import SomeInvoiceSelectedContext from '../../context/someInvoiceSelectedContext'
+import HomeLoadingContext from '../../context/homeLoadingContext'
 
 function Home()
 {
@@ -11,6 +12,8 @@ function Home()
         month:null,
         year:new Date().getFullYear()
     })
+
+    const [homeLoading,setHomeLoading] = useState(true)
 
     const [someInvoiceSelected,setSomeInvoiceSelected] = useState(false)
 
@@ -27,6 +30,7 @@ function Home()
     },[showAside])
 
     return(
+        <HomeLoadingContext.Provider value={{loading:homeLoading,setLoading:setHomeLoading}}>
         <SomeInvoiceSelectedContext.Provider value={{someInvoiceSelected,setSomeInvoiceSelected}}>
         <SelectedDateContext.Provider value={{date,setDate}}>
         <div className={styles.container}>
@@ -35,6 +39,7 @@ function Home()
         </div>
         </SelectedDateContext.Provider>
         </SomeInvoiceSelectedContext.Provider>
+        </HomeLoadingContext.Provider>
     )
 }
 

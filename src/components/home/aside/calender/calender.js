@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import ArrowIcon from '../../../../assets/svg/arrowIcon'
 import styles from './calender.module.css'
 import SelectedDateContext from '../../../../context/selectedDateContext'
+import HomeLoadingContext from '../../../../context/homeLoadingContext'
 
 function Calender()
 {
@@ -12,9 +13,11 @@ function Calender()
     const [selectedMonth,setSelectedMonth] = useState(null)
 
     const selectedDateContext = useContext(SelectedDateContext)
+    const loadingContext = useContext(HomeLoadingContext)
 
     const setNewYear = (e,dir) =>
     {
+        if(loadingContext.loading) return
         if(e.target.closest(`.${styles.arrow}`).classList.contains(styles.arrowDisabled)) return
         setYear(dir === "asc"?year+1:year-1)
         setSelectedMonth(null)
@@ -34,6 +37,8 @@ function Calender()
 
     const setMonth = (month) =>
     {
+        if(loadingContext.loading) return
+
         if(selectedMonth === month)
         {
             setSelectedMonth(null)
@@ -73,13 +78,13 @@ function Calender()
     }
 
     return(
-        <div className={styles.container}>
+        <div className={`${styles.container} ${loadingContext.loading?styles.containerLoading:''}`}>
             <header className={styles.header}>
-                <div onClick={e=>setNewYear(e,'desc')} className={styles.arrow}>
+                <div onClick={e=>setNewYear(e,'desc')} className={`${styles.arrow} ${loadingContext.loading?styles.arrowWhileLoading:''}`}>
                     <ArrowIcon class={`${styles.arrowIcon} ${styles.arrowRotated}`}/>
                 </div>
                 <h2>{year}</h2>
-                <div onClick={e=>setNewYear(e,'asc')} className={`${styles.arrow} ${year === date.getFullYear()?styles.arrowDisabled:''}`}>
+                <div onClick={e=>setNewYear(e,'asc')} className={`${styles.arrow} ${year === date.getFullYear()?styles.arrowDisabled:''} ${loadingContext.loading?styles.arrowWhileLoading:''}`}>
                     <ArrowIcon class={styles.arrowIcon}/>
                 </div>
             </header>

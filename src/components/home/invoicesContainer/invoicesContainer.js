@@ -8,16 +8,16 @@ import InvoiceElement from './invoiceElement/invoiceElement'
 import LoadingIcon from '../../../assets/svg/loadingIcon'
 import SomeInvoiceSelectedContext from '../../../context/someInvoiceSelectedContext'
 import SelectedDateContext from '../../../context/selectedDateContext'
+import HomeLoadingContext from '../../../context/homeLoadingContext'
 
 function InvoicesContainer(props)
 {
-    const [loading,setLoading] = useState(1)
     const [data,setData] = useState([])
     const [error,setError] = useState({type:null,info:''})
     const [allItemsSelected,setAllItemsSelected] = useState(false)
-    // const dateFilter = useRef('all')
     const [dateFilter,setDateFilter] = useState('all')
 
+    const loadingContext = useContext(HomeLoadingContext)
 
     const someInvoiceSelectedContext = useContext(SomeInvoiceSelectedContext)
     const dateContext = useContext(SelectedDateContext)
@@ -30,12 +30,12 @@ function InvoicesContainer(props)
         {
             const response = await axios.get(`${ApiAddress}/getInvoices?date=${dateFilter}`)
             setData(prev=>[...prev,...response.data])
-            setLoading(false)
+            loadingContext.setLoading(false)
             setError({type:null,info:''})
         }
         catch(ex)
         {
-            setLoading(false)
+            loadingContext.setLoading(false)
             if(ex.status === 404)
             {
                 setError({type:404,info:'Nie znaleziono faktur'})
@@ -132,7 +132,7 @@ function InvoicesContainer(props)
     return(
         <div className={styles.container}>
 
-            {loading?
+            {loadingContext.loading?
             <div className={styles.loadingContainer}>
                 <div className={styles.loading}>
                     <LoadingIcon />
