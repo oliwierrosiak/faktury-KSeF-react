@@ -14,6 +14,10 @@
     min-height: calc(100svh - 4rem);
     background-color: #F9FAFB;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 6rem 5rem;
+    gap:5rem;
 }
 .loading
 {
@@ -53,7 +57,7 @@
     width: 6rem;
     height: 6rem;
 }
-.errorContainer>h1
+.errorContainer>h2
 {
     font-weight:900;
     font-size: 1.8rem;
@@ -81,4 +85,90 @@
 .back:hover>.arrow
 {
     fill: #1F2937;
+}
+.header
+{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.invoiceInfo
+{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap:.5rem;
+}   
+.invoiceInfo>h1
+{
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #1F2937;
+}
+.invoiceInfo>p
+{
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: "Inter", sans-serif;
+    color: #6B7280;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.invoiceAction
+{
+    justify-self: center;
+    align-self: center;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #3B82F6;
+    font-family: "Poppins", sans-serif;
+}
+.buyerSellerInfo
+{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:5rem;
+}
+.section
+{
+    display: flex;
+    flex-direction: column;
+    gap:.5rem;
+}
+.section>h2
+{
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding-left: .8rem;
+    color: #1F2937;
+    font-family: "Inter", sans-serif;
+}
+.line
+{
+    width: 90%;
+    height: .2rem;
+    border-radius: 10px;
+    background-color: #6B7280;
+    margin-bottom: 1rem;
+}
+.sectionItem
+{
+    padding: .3rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    color: #6B7280;
+}
+.table
+{
+    width: 100%;
+    height: 10rem;
+    background-color: yellow;
 }

@@ -21,6 +21,7 @@ function Invoice()
         try
         {
             const response = await axios.get(`${ApiAddress}/getInvoiceData?id=${params.id}`)
+            console.log(response.data)
             setInvoiceData(response.data)
             setLoading(false)
         }
@@ -29,6 +30,19 @@ function Invoice()
             console.log(ex)
             setInvoiceError(true)
             setLoading(false)
+        }
+    }
+
+    const transformInvoiceAction = (value)=>
+    {
+        switch(value)
+        {
+            case 'notRecord':
+                return 'Nie Księgować'
+            case 'cost':
+                return 'Koszt'
+            default:
+                return ''
         }
     }
 
@@ -52,8 +66,44 @@ function Invoice()
 
             {invoiceError &&<div className={styles.errorContainer}>
                 <InvoicesNotFound class={styles.invoiceError}/>
-                <h1>Nie udało się pobrać danych faktury</h1>
+                <h2>Nie udało się pobrać danych faktury</h2>
             </div>}
+
+            {!loading && !invoiceError &&<>
+            
+                <header className={styles.header}>
+                    <section className={styles.invoiceInfo}>
+                        <h1 className={invoiceData.action === 'notRecord'?styles.h1Overline:''}>Faktura nr: {invoiceData.invoiceNumber}</h1>
+                        <p>Numer KSeF: {invoiceData.ksefNumber}</p>
+                        <p>Data wystawienia: {invoiceData.issueDate}</p>
+                        <p>Rodzaj faktury: {invoiceData.invoiceType}</p>
+                    </section>
+                    <section className={styles.invoiceAction}>
+                        <h2>{transformInvoiceAction(invoiceData.action)}</h2>
+                    </section>
+                </header>
+
+                <article className={styles.buyerSellerInfo}>
+                    <section className={styles.section}>
+                        <h2>Sprzedawca</h2>
+                        <div className={styles.line}></div>
+                        <p className={styles.sectionItem}>Nazwa: {invoiceData.seller?.name}</p>
+                        <p className={styles.sectionItem}>NIP: {invoiceData.seller?.nip}</p>
+                    </section>
+
+                    <section className={styles.section}>
+                        <h2>Nabywca</h2>
+                        <div className={styles.line}></div>
+                        <p className={styles.sectionItem}>Nazwa: {invoiceData.buyer?.name}</p>
+                        <p className={styles.sectionItem}>NIP: {invoiceData.buyer?.nip}</p>
+                    </section>
+                </article>
+
+                <article className={styles.table}>
+                    
+                </article>
+
+            </>}
 
             </main>
         </div>
