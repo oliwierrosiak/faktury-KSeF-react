@@ -15,6 +15,16 @@ function Calender()
     const selectedDateContext = useContext(SelectedDateContext)
     const loadingContext = useContext(HomeLoadingContext)
 
+    useEffect(()=>{
+        if(!loadingContext.loading)
+        {
+            setYear(date.getFullYear())
+            setCurrentMonth(date.getMonth())
+            setSelectedMonth(null)
+
+        }
+    },[loadingContext.loading])
+
     const setNewYear = (e,dir) =>
     {
         if(loadingContext.loading) return

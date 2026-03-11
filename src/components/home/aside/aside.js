@@ -8,11 +8,15 @@ import Search from './search/search'
 import SomeInvoiceSelectedContext from '../../../context/someInvoiceSelectedContext'
 import HomeLoadingContext from '../../../context/homeLoadingContext'
 import LoadingIcon from '../../../assets/svg/loadingIcon'
+import axios from 'axios'
+import ApiAddress from '../../../ApiAddress'
+import MessageContext from '../../../context/messageContext'
 
 function Aside(props)
 {
     const someInvoiceSelectedContext = useContext(SomeInvoiceSelectedContext)
     const loadingContext = useContext(HomeLoadingContext)
+    const messageContext = useContext(MessageContext)
 
     const [getLoading,setGetLoading] = useState(false)
     
@@ -21,11 +25,18 @@ function Aside(props)
     {
         loadingContext.setLoading(true)
         setGetLoading(true)
-        if(getLoading && loadingContext.loading)
+        if(getLoading && loadingContext.loading) return
+    
+        try
         {
-            return
+            const response = await axios.get(`${ApiAddress}/downloadInvoices2`)
         }
-        console.log("click")
+        catch(ex)
+        {
+            messageContext.setMessage('Nie udało sie pobrać faktur')
+            setGetLoading(false)
+            loadingContext.setLoading(false)
+        }
     }
 
     return(

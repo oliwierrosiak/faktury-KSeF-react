@@ -1,0 +1,59 @@
+.messageContainer
+{
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: #787b83;
+    padding:.6rem .8rem .8rem .6rem;
+    z-index: 3;
+    transform: translate(150%);
+    transition: all .3s ease;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    max-width: 30rem;
+    grid-template-columns: 1.5rem auto;
+    gap:.5rem;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.displayContainerMessage
+{
+    transform: translate(0);
+}
+.infoIcon
+{
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: #F9FAFB;
+}
+.content
+{
+    font-size: 1.2rem;
+    width: 100%;
+    text-align: center;
+    color: #F9FAFB;
+    font-family: "Inter", sans-serif;
+}
+.progressBar
+{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: .3rem;
+}
+.progress
+{
+    width: 100%;
+    border-radius: 20px;
+    background-color: #60A5FA;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 3.1s linear .3s;
+    height: 100%;
+}
+.progressDisplay
+{
+    transform: scaleX(1);
+}

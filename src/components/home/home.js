@@ -5,6 +5,8 @@ import Main from './main/main'
 import SelectedDateContext from '../../context/selectedDateContext'
 import SomeInvoiceSelectedContext from '../../context/someInvoiceSelectedContext'
 import HomeLoadingContext from '../../context/homeLoadingContext'
+import MessageContext from '../../context/messageContext'
+import Message from './message/message'
 
 function Home()
 {
@@ -14,8 +16,8 @@ function Home()
     })
 
     const [homeLoading,setHomeLoading] = useState(true)
-
     const [someInvoiceSelected,setSomeInvoiceSelected] = useState(false)
+    const [message,setMessage] = useState('')
 
     const showAsideSetter = () =>
     {
@@ -30,16 +32,19 @@ function Home()
     },[showAside])
 
     return(
+        <MessageContext.Provider value={{message,setMessage}}>
         <HomeLoadingContext.Provider value={{loading:homeLoading,setLoading:setHomeLoading}}>
         <SomeInvoiceSelectedContext.Provider value={{someInvoiceSelected,setSomeInvoiceSelected}}>
         <SelectedDateContext.Provider value={{date,setDate}}>
         <div className={styles.container}>
             <Aside showAside={showAside} setShowAside={setShowAside}/>
             <Main showAside={showAside}/>
+            {message && <Message/>}
         </div>
         </SelectedDateContext.Provider>
         </SomeInvoiceSelectedContext.Provider>
         </HomeLoadingContext.Provider>
+        </MessageContext.Provider>
     )
 }
 
