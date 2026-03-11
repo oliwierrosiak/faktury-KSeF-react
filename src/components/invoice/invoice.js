@@ -6,6 +6,7 @@ import ArrowIcon from '../../assets/svg/arrowIcon'
 import { useNavigate, useParams } from 'react-router-dom'
 import ApiAddress from '../../ApiAddress'
 import axios from 'axios'
+import InvoicePosition from './invoicePosition'
 
 function Invoice()
 {
@@ -16,6 +17,39 @@ function Invoice()
 
     const navigate = useNavigate()
     const params = useParams()
+
+    const positionsConfig = [
+    {
+        name: 'Usługa programistyczna - Backend API, Usługa programistyczna - Backend API,Usługa programistyczna - Backend API ,Usługa programistyczna - Backend API',
+        netto: 15000.00,
+        brutto: 18450.00,
+        vat: "23%"
+    },
+    {
+        name: 'Konsultacje IT (godzinowe)',
+        netto: 2500.00,
+        brutto: 3075.00,
+        vat: "23%"
+    },
+    {
+        name: 'Laptop Dell XPS 15',
+        netto: 8200.00,
+        brutto: 10086.00,
+        vat: "23%"
+    },
+    {
+        name: 'Licencja oprogramowania (roczna)',
+        netto: 600.00,
+        brutto: 738.00,
+        vat: "23%"
+    },
+    {
+        name: 'Usługi doradcze (stawka obniżona)',
+        netto: 1000.00,
+        brutto: 1080.00,
+        vat: "8%"
+    },
+    ]
 
     const getInvoiceData = async()=>{
         try
@@ -100,7 +134,30 @@ function Invoice()
                 </article>
 
                 <article className={styles.table}>
-                    
+                    <div className={styles.tableHeaderItem}>Nazwa</div>
+                    <div className={styles.tableHeaderItem}>Wartość Netto</div>
+                    <div className={styles.tableHeaderItem}>VAT</div>
+                    <div className={styles.tableHeaderItem}>Wartość Brutto</div>
+
+                    <div className={styles.tableHeaderItem}>
+                        Akcja
+                    </div>
+
+                    {positionsConfig.map(x=><InvoicePosition key={Math.floor(Math.random()*100000)} {...x}/>)}
+
+                </article>
+
+                <article className={styles.sum}>
+                    <div className={styles.sumTable}>
+                    <div></div>
+                    <div className={`${styles.sumTableHeader} ${styles.tableBorderLeft} ${styles.tableBorderTop}`}>Wartość Netto</div>
+                    <div className={`${styles.sumTableHeader} ${styles.tableBorderTop}`}>VAT</div>
+                    <div className={`${styles.sumTableHeader} ${styles.tableBorderTop} ${styles.tableBorderRight}`}>Wartość Brutto</div>
+                    <div className={`${styles.sumTableHeader} ${styles.tableBorderTop} ${styles.tableBorderLeft} ${styles.tableBorderBottom}`}>Razem</div>
+                    <div className={`${styles.sumTableItem} ${styles.tableBorderBottom}`}>{invoiceData.netAmount} PLN</div>
+                    <div className={`${styles.sumTableItem} ${styles.tableBorderBottom}`}>{invoiceData.vatAmount} PLN</div>
+                    <div className={`${styles.sumTableItem} ${styles.tableBorderBottom} ${styles.tableBorderRight} ${styles.bold}`}>{invoiceData.grossAmount} PLN</div>
+                    </div>
                 </article>
 
             </>}
