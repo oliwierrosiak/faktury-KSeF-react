@@ -18,38 +18,6 @@ function Invoice()
     const navigate = useNavigate()
     const params = useParams()
 
-    const positionsConfig = [
-    {
-        name: 'Usługa programistyczna - Backend API',
-        netto: 15000.00,
-        brutto: 18450.00,
-        vat: "23%"
-    },
-    {
-        name: 'Konsultacje IT (godzinowe)',
-        netto: 2500.00,
-        brutto: 3075.00,
-        vat: "23%"
-    },
-    {
-        name: 'Laptop Dell XPS 15',
-        netto: 8200.00,
-        brutto: 10086.00,
-        vat: "23%"
-    },
-    {
-        name: 'Licencja oprogramowania (roczna)',
-        netto: 600.00,
-        brutto: 738.00,
-        vat: "23%"
-    },
-    {
-        name: 'Usługi doradcze (stawka obniżona)',
-        netto: 1000.00,
-        brutto: 1080.00,
-        vat: "8%"
-    },
-    ]
 
     const getInvoiceData = async()=>{
         try
@@ -145,7 +113,7 @@ function Invoice()
                         Komentarz
                     </div>
 
-                    {positionsConfig.map(x=><InvoicePosition key={Math.floor(Math.random()*100000)} {...x}/>)}
+                    {invoiceData.invoiceFields.map(x=><InvoicePosition key={Math.floor(Math.random()*100000)} {...x}/>)}
 
                 </article>
 
