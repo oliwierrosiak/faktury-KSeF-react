@@ -23,13 +23,11 @@ function Invoice()
         try
         {
             const response = await axios.get(`${ApiAddress}/getInvoiceData?id=${params.id}`)
-            console.log(response.data)
             setInvoiceData(response.data)
             setLoading(false)
         }
         catch(ex)
         {
-            console.log(ex)
             setInvoiceError(true)
             setLoading(false)
         }
