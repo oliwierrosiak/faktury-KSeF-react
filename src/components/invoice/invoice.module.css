@@ -167,19 +167,17 @@
     font-family: "Inter", sans-serif;
     color: #6B7280;
 }
+
 .table
 {
     width: 100%;
     display: grid;
-    grid-template-columns: 5fr 1fr;
-    /* gap:1rem; */
-}
-.table
-{
-    width: 100%;
-    display: grid;
-    border:.1rem solid #6B7280;;
-    grid-template-columns: 6fr 3fr 1fr 3fr 3fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    border:.2rem solid #6B7280;
+    border-radius: 1rem;
+    overflow: hidden;
+    padding: 0 0 1rem 0;
+    background-color: #E5E7EB;
 }
 .tableHeaderItem
 {
@@ -188,7 +186,6 @@
     width: 100%;
     height: 100%;
     text-align: center;
-    border:.1rem solid #6B7280;
     padding: .5rem;
     font-weight: 700;
     font-size: 1.1rem;
@@ -196,8 +193,7 @@
 }
 .tableItem
 {
-    border:.1rem solid #6B7280;
-    padding: .6rem .5rem;
+    padding: .5rem .5rem;
     text-align: center;
     font-weight: 500;
     font-family: "Roboto", sans-serif;
@@ -206,12 +202,60 @@
     align-items: center;
     color: #1F2937;
     font-size: 1rem;
+    margin-top: 1rem;
+}
+.commentItem
+{
+    grid-column: 1/5;
+    padding: 0;
+    margin-bottom: .5rem;
+}
+.commentBtn
+{
+    font-size: 1.1rem;
+    width: 90%;
+    padding: .3rem .8rem;
+    border-radius: .6rem;
+    outline: none;
+    border: 0;
+    background-color: #8790a0;
+    color: white;
+    cursor: pointer;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+}
+.commentBtn:hover
+{
+    background-color: #60A5FA;
+}
+.commentInput
+{
+    width: 40%;
+    height: 100%;
+    background:none;
+    outline: none;
+    border: 0;
+    font-size: 1rem;
+    padding: 0rem 1rem;
+    color: #6B7280;
+    font-family: "Roboto", sans-serif;
+    text-overflow: ellipsis;
+}
+.commentInput:focus
+{
+    width: 100%;
 }
 .nameItem
 {
+    width: 100%;
+    display: grid;
+    justify-content: flex-start;
+    align-items: center;
     text-align: start;
-    display: block;
+    padding-left: 1rem;
 }
+
+
 .sum
 {
     width: 100%;

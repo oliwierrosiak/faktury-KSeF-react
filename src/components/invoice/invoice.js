@@ -20,7 +20,7 @@ function Invoice()
 
     const positionsConfig = [
     {
-        name: 'Usługa programistyczna - Backend API, Usługa programistyczna - Backend API,Usługa programistyczna - Backend API ,Usługa programistyczna - Backend API',
+        name: 'Usługa programistyczna - Backend API',
         netto: 15000.00,
         brutto: 18450.00,
         vat: "23%"
@@ -135,12 +135,14 @@ function Invoice()
 
                 <article className={styles.table}>
                     <div className={styles.tableHeaderItem}>Nazwa</div>
-                    <div className={styles.tableHeaderItem}>Wartość Netto</div>
-                    <div className={styles.tableHeaderItem}>VAT</div>
                     <div className={styles.tableHeaderItem}>Wartość Brutto</div>
 
                     <div className={styles.tableHeaderItem}>
                         Akcja
+                    </div>
+
+                    <div className={styles.tableHeaderItem}>
+                        Komentarz
                     </div>
 
                     {positionsConfig.map(x=><InvoicePosition key={Math.floor(Math.random()*100000)} {...x}/>)}
