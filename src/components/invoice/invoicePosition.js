@@ -52,6 +52,8 @@ function InvoicePosition(props)
         catch(ex)
         {
             messageContext.setMessage('Nie udało się zapisać komentarza')
+            props.setLoading(true)
+            props.getInvoiceData()
         }
     }
 
@@ -64,6 +66,8 @@ function InvoicePosition(props)
         catch(ex)
         {
             messageContext.setMessage('Nie udało się usunąć komentarza')
+            props.setLoading(true)
+            props.getInvoiceData()
         }
     }
 
