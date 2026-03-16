@@ -170,13 +170,13 @@
 
 .table
 {
-    width: 100%;
+    width: calc(100% - 2px);
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
     border:.2rem solid #6B7280;
     border-radius: 1rem;
     padding: 0 0 1rem 0;
-    background-color: #E5E7EB;
+    background-color: #E5E7EB;  
 }
 .tableHeaderItem
 {
