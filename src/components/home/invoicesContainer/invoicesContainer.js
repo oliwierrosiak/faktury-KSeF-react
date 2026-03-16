@@ -87,7 +87,7 @@ function InvoicesContainer(props)
     {
         try
         {
-            const response = await axios.post(`${ApiAddress}/invoiceActionUpdate`,{
+            const response = await axios.put(`${ApiAddress}/invoiceActionUpdate`,{
                 id,
                 action
             })

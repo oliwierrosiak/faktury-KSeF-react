@@ -111,7 +111,7 @@ function Invoice()
                         Komentarz
                     </div>
 
-                    {invoiceData.invoiceFields.map(x=><InvoicePosition key={Math.floor(Math.random()*100000)} {...x}/>)}
+                    {invoiceData.invoiceFields.map(x=><InvoicePosition key={Math.floor(Math.random()*100000)} invoiceAction={invoiceData.action} {...x}/>)}
 
                 </article>
 

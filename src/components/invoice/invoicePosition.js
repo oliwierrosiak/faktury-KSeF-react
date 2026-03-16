@@ -2,14 +2,33 @@ import { useEffect, useRef, useState } from 'react'
 import styles from './invoice.module.css'
 import axios from 'axios'
 import ApiAddress from '../../ApiAddress'
+import { useParams } from 'react-router-dom'
 
 function InvoicePosition(props)
 {
+    const checkInvoiceActionLocked = (action) =>
+    {
+        if(action === "notRecord" || action === "cost")
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
+
     const [displayComment,setDisplayComment] = useState(props.comment?true:false)
 
     const [comment,setComment] = useState(props.comment?props.comment:'')
+    
+    const [displayActionMenu,setDisplayActionMenu] = useState(false)
+    const [action,setAction] = useState(props.invoiceAction)
+    const [actionLocked] = useState(checkInvoiceActionLocked(props.invoiceAction))
 
     const inputRef = useRef()
+
+    const params = useParams()
 
     const commentBlur = async() =>
     {
@@ -43,11 +62,54 @@ function InvoicePosition(props)
         }
     },[displayComment])
 
+    const getActionPolishName = (value) =>
+    {
+        switch(value)
+        {
+            case 'notRecord':
+                return 'Nie Księgować'
+            case 'cost':
+                return "Koszt"
+            case 'goods':
+                return "Towar Handlowy"
+            default:
+                return '--Wybierz Akcję--'
+        }
+    }
+
+    const changePositionAction = async(action) =>
+    {
+        setAction(action)
+        try
+        {
+            const response = await axios.put(`${ApiAddress}/updateInvoicePositionAction`,{
+                invoiceId:params.id,
+                positionId:props._id,
+                action
+            })
+        }
+        catch(ex)
+        {
+            // błąd akcji
+        }
+    }
+
     return(
         <>
-            <div className={`${styles.tableItem} ${styles.nameItem}`}>{props.name}</div>
-            <div className={styles.tableItem}>{props.brutto} PLN</div>
-            <div className={styles.tableItem}>menu akcji</div>
+            <div className={`${styles.tableItem} ${styles.nameItem} ${action === 'notRecord'?styles.elementOverline:''}`}>{props.name}</div>
+            <div className={`${styles.tableItem} ${action === 'notRecord'?styles.elementOverline:''}`}>{props.brutto} PLN</div>
+            <div className={styles.tableItem}>
+                <div className={`
+                    ${styles.action} ${actionLocked?styles.actionLocked:''}`} onClick={e=>setDisplayActionMenu(!displayActionMenu)}>
+                    <h3>{getActionPolishName(action)}</h3>
+                    {displayActionMenu && !actionLocked && <ul className={styles.list}>
+                        <li onClick={e=>changePositionAction(null)}>--Wybierz Akcję--</li>
+                        <li onClick={e=>changePositionAction('notRecord')}>Nie Księgować</li>
+                        <li onClick={e=>changePositionAction('cost')}>Koszt</li>
+                        <li onClick={e=>changePositionAction("goods")}>Towar Handlowy</li>
+                    </ul>}
+                </div>
+            </div>
             <div className={styles.tableItem}>
                 <button className={styles.commentBtn} onClick={e=>setDisplayComment(!displayComment)}>{displayComment?"Usuń Komentarz":"Dodaj Komentarz"}</button></div>
             {displayComment && <div className={styles.commentItem}>

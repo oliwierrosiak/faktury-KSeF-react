@@ -175,7 +175,6 @@
     grid-template-columns: 2fr 1fr 1fr 1fr;
     border:.2rem solid #6B7280;
     border-radius: 1rem;
-    overflow: hidden;
     padding: 0 0 1rem 0;
     background-color: #E5E7EB;
 }
@@ -240,10 +239,12 @@
     color: #6B7280;
     font-family: "Roboto", sans-serif;
     text-overflow: ellipsis;
+    cursor: pointer;
 }
 .commentInput:focus
 {
     width: 100%;
+    cursor: text;
 }
 .nameItem
 {
@@ -313,4 +314,62 @@
 {
     font-weight: 900;
     font-family: "Poppins", sans-serif;
+}
+.action
+{
+    padding: .3rem .8rem;
+    border-radius: .6rem;
+    background-color: #8790a0;
+    color: white;
+    cursor: pointer;
+    width: 90%;
+    position: relative;
+}
+/* .action:hover
+{
+    background-color: #6B7280;
+} */
+.action>h3
+{
+    font-size: 1.1rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+}
+.list
+{
+    position: absolute;
+    top:120%;
+    left:0;
+    right: 0;
+    background-color: #6B7280;
+    list-style-type: none;
+    border-radius: .6rem;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.list>li
+{
+    width: 100%;
+    padding: .4rem;
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+}
+.list>li:hover
+{
+    background-color: #8890a1;
+}
+.elementOverline
+{
+    text-decoration: line-through .2rem red;
+}
+.actionLocked
+{
+    cursor: default;
+    background: none;
+}
+.actionLocked>h3
+{
+    color: #6B7280;
+    font-weight: 700;
 }
