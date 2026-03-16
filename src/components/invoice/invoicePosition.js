@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useId, useRef, useState } from 'react'
 import styles from './invoice.module.css'
 import axios from 'axios'
 import ApiAddress from '../../ApiAddress'
@@ -42,6 +42,8 @@ function InvoicePosition(props)
     const params = useParams()
 
     const messageContext = useContext(MessageContext)
+
+    const id = useId()
 
     const commentBlur = async() =>
     {
@@ -115,7 +117,7 @@ function InvoicePosition(props)
 
     const windowClick = (e) =>
     {
-        if(!e.target.closest(`.${styles.action}`))
+        if(e.target.closest(`.${styles.action}`)?.id != id)
         {
             setDisplayActionMenu(false)
         }
@@ -135,7 +137,7 @@ function InvoicePosition(props)
             <div className={`${styles.tableItem} ${action === 'notRecord'?styles.elementOverline:''}`}>{props.brutto} PLN</div>
             <div className={styles.tableItem}>
                 <div className={`
-                    ${styles.action} ${actionLocked?styles.actionLocked:''}`} onClick={e=>setDisplayActionMenu(!displayActionMenu)}>
+                    ${styles.action} ${actionLocked?styles.actionLocked:''}`} onClick={e=>setDisplayActionMenu(!displayActionMenu)} id={id}>
                     <h3>{getActionPolishName(action)}</h3>
                     {displayActionMenu && !actionLocked && <ul className={styles.list}>
                         <li onClick={e=>changePositionAction(null)}>--Wybierz Akcję--</li>

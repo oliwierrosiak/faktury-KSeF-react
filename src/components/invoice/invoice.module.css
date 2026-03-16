@@ -337,7 +337,8 @@
     top:120%;
     left:0;
     right: 0;
-    background-color: #6B7280;
+    background-color: #595f6a;
+    border:.3rem solid #434750;
     list-style-type: none;
     border-radius: .6rem;
     overflow: hidden;
