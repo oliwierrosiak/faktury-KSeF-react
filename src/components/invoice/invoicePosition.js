@@ -89,6 +89,8 @@ function InvoicePosition(props)
         catch(ex)
         {
             messageContext.setMessage("Nie udało się zapisać akcji dla pozycji faktury")
+            props.setLoading(true)
+            props.getInvoiceData()
         }
     }
 
