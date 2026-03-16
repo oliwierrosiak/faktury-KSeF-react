@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styles from './invoice.module.css'
 import LoadingIcon from '../../assets/svg/loadingIcon'
 import InvoicesNotFound from '../../assets/svg/invoicesNotFoundIcon'
@@ -7,6 +7,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import ApiAddress from '../../ApiAddress'
 import axios from 'axios'
 import InvoicePosition from './invoicePosition'
+import MessageContext from '../../context/messageContext'
+import Message from '../message/message'
 
 function Invoice()
 {
@@ -18,6 +20,7 @@ function Invoice()
     const navigate = useNavigate()
     const params = useParams()
 
+    const messageContext = useContext(MessageContext)
 
     const getInvoiceData = async()=>{
         try
@@ -131,6 +134,9 @@ function Invoice()
             </>}
 
             </main>
+
+            {messageContext.message && <Message />}
+
         </div>
     )
 }

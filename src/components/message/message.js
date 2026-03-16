@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 import styles from './message.module.css'
-import MessageContext from '../../../context/messageContext'
-import InfoIcon from '../../../assets/svg/infoIcon'
+import MessageContext from '../../context/messageContext'
+import InfoIcon from '../../assets/svg/infoIcon'
 
 function Message()
 {

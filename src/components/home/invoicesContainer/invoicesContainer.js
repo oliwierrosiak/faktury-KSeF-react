@@ -9,6 +9,7 @@ import LoadingIcon from '../../../assets/svg/loadingIcon'
 import SomeInvoiceSelectedContext from '../../../context/someInvoiceSelectedContext'
 import SelectedDateContext from '../../../context/selectedDateContext'
 import HomeLoadingContext from '../../../context/homeLoadingContext'
+import MessageContext from '../../../context/messageContext'
 
 function InvoicesContainer(props)
 {
@@ -18,7 +19,7 @@ function InvoicesContainer(props)
     const [dateFilter,setDateFilter] = useState('all')
 
     const loadingContext = useContext(HomeLoadingContext)
-
+    const messageContext = useContext(MessageContext)
     const someInvoiceSelectedContext = useContext(SomeInvoiceSelectedContext)
     const dateContext = useContext(SelectedDateContext)
 
@@ -87,13 +88,17 @@ function InvoicesContainer(props)
     {
         try
         {
-            const response = await axios.put(`${ApiAddress}/invoiceActionUpdate`,{
+            await axios.put(`${ApiAddress}/invoiceActionUpdate`,{
                 id,
                 action
             })
         }
         catch(ex)
         {
+            messageContext.setMessage("Nie udało się zapisać akcji faktury")
+            setData([])
+            loadingContext.setLoading(true)
+            getInvoices()
         }
     }
 

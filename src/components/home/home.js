@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Aside from './aside/aside'
 import styles from './home.module.css'
 import Main from './main/main'
@@ -6,7 +6,7 @@ import SelectedDateContext from '../../context/selectedDateContext'
 import SomeInvoiceSelectedContext from '../../context/someInvoiceSelectedContext'
 import HomeLoadingContext from '../../context/homeLoadingContext'
 import MessageContext from '../../context/messageContext'
-import Message from './message/message'
+import Message from '../message/message'
 
 function Home()
 {
@@ -17,7 +17,7 @@ function Home()
 
     const [homeLoading,setHomeLoading] = useState(true)
     const [someInvoiceSelected,setSomeInvoiceSelected] = useState(false)
-    const [message,setMessage] = useState('')
+    const messageContext = useContext(MessageContext)
 
     const showAsideSetter = () =>
     {
@@ -32,19 +32,18 @@ function Home()
     },[showAside])
 
     return(
-        <MessageContext.Provider value={{message,setMessage}}>
+        
         <HomeLoadingContext.Provider value={{loading:homeLoading,setLoading:setHomeLoading}}>
         <SomeInvoiceSelectedContext.Provider value={{someInvoiceSelected,setSomeInvoiceSelected}}>
         <SelectedDateContext.Provider value={{date,setDate}}>
         <div className={styles.container}>
             <Aside showAside={showAside} setShowAside={setShowAside}/>
             <Main showAside={showAside}/>
-            {message && <Message/>}
+            {messageContext.message && <Message/>}
         </div>
         </SelectedDateContext.Provider>
         </SomeInvoiceSelectedContext.Provider>
         </HomeLoadingContext.Provider>
-        </MessageContext.Provider>
     )
 }
 

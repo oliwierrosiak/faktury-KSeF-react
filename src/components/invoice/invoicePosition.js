@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import styles from './invoice.module.css'
 import axios from 'axios'
 import ApiAddress from '../../ApiAddress'
 import { useParams } from 'react-router-dom'
+import MessageContext from '../../context/messageContext'
 
 function InvoicePosition(props)
 {
@@ -40,15 +41,17 @@ function InvoicePosition(props)
 
     const params = useParams()
 
+    const messageContext = useContext(MessageContext)
+
     const commentBlur = async() =>
     {
         try
         {
-            const response = await axios.post(`${ApiAddress}/updateComment`,{content:comment,id:props._id})
+            await axios.post(`${ApiAddress}/updateComment`,{content:comment,id:props._id})
         }
         catch(ex)
         {
-            // obsluzyc błąd komentarza
+            messageContext.setMessage('Nie udało się zapisać komentarza')
         }
     }
 
@@ -60,12 +63,12 @@ function InvoicePosition(props)
         }
         catch(ex)
         {
-            // obsluzyc błąd komentarza
+            messageContext.setMessage('Nie udało się usunąć komentarza')
         }
     }
 
     useEffect(()=>{
-        if(!displayComment)
+        if(!displayComment && comment != '')
         {
             setComment('')
             commentDeleted()
@@ -85,7 +88,7 @@ function InvoicePosition(props)
         }
         catch(ex)
         {
-            // błąd akcji
+            messageContext.setMessage("Nie udało się zapisać akcji dla pozycji faktury")
         }
     }
 
