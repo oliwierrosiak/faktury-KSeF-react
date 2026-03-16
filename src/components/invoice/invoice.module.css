@@ -325,10 +325,6 @@
     width: 90%;
     position: relative;
 }
-/* .action:hover
-{
-    background-color: #6B7280;
-} */
 .action>h3
 {
     font-size: 1.1rem;
@@ -347,7 +343,6 @@
     overflow: hidden;
     z-index: 2;
 }
-
 .list>li
 {
     width: 100%;
@@ -372,4 +367,17 @@
 {
     color: #6B7280;
     font-weight: 700;
+}
+.commentBtn::selection,
+.action::selection
+{
+    background: none;
+}
+.leftTopRadius
+{
+    border-top-left-radius: .8rem;
+}
+.rightTopRadius
+{
+    border-top-right-radius: .8rem;
 }

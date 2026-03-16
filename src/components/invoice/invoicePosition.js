@@ -18,12 +18,22 @@ function InvoicePosition(props)
         }
     }
 
+    const actionSetter = () =>
+    {
+        if(props.invoiceAction)
+        {
+            return props.invoiceAction
+        }
+
+        return props.action
+    }
+
     const [displayComment,setDisplayComment] = useState(props.comment?true:false)
 
     const [comment,setComment] = useState(props.comment?props.comment:'')
     
     const [displayActionMenu,setDisplayActionMenu] = useState(false)
-    const [action,setAction] = useState(props.invoiceAction)
+    const [action,setAction] = useState(actionSetter())
     const [actionLocked] = useState(checkInvoiceActionLocked(props.invoiceAction))
 
     const inputRef = useRef()
@@ -62,6 +72,23 @@ function InvoicePosition(props)
         }
     },[displayComment])
 
+    const changePositionAction = async(action) =>
+    {
+        setAction(action)
+        try
+        {
+            await axios.put(`${ApiAddress}/updateInvoicePositionAction`,{
+                invoiceId:params.id,
+                positionId:props._id,
+                action
+            })
+        }
+        catch(ex)
+        {
+            // błąd akcji
+        }
+    }
+
     const getActionPolishName = (value) =>
     {
         switch(value)
@@ -77,22 +104,21 @@ function InvoicePosition(props)
         }
     }
 
-    const changePositionAction = async(action) =>
+    const windowClick = (e) =>
     {
-        setAction(action)
-        try
+        if(!e.target.closest(`.${styles.action}`))
         {
-            const response = await axios.put(`${ApiAddress}/updateInvoicePositionAction`,{
-                invoiceId:params.id,
-                positionId:props._id,
-                action
-            })
-        }
-        catch(ex)
-        {
-            // błąd akcji
+            setDisplayActionMenu(false)
         }
     }
+
+    useEffect(()=>{
+        window.addEventListener("click",windowClick)
+        return()=>
+        {
+            window.removeEventListener("click",windowClick)
+        }
+    },[])
 
     return(
         <>
