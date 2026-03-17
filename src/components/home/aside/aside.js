@@ -34,7 +34,21 @@ function Aside(props)
         }
         catch(ex)
         {
-            messageContext.setMessage('Nie udało sie pobrać faktur')
+            if(ex.response.status === 429)
+            {
+                if(Array.isArray(ex.response.data.message))
+                {
+                   messageContext.setMessage(ex.response.data.message[0])
+                }
+                else
+                {
+                    messageContext.setMessage('Za dużo żądań pobrania faktur')
+                }
+            }
+            else
+            {
+                messageContext.setMessage('Nie udało sie pobrać faktur')
+            }
             setGetLoading(false)
             loadingContext.setLoading(false)
         }
