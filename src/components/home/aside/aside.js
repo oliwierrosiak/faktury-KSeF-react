@@ -11,12 +11,15 @@ import LoadingIcon from '../../../assets/svg/loadingIcon'
 import axios from 'axios'
 import ApiAddress from '../../../ApiAddress'
 import MessageContext from '../../../context/messageContext'
+import SelectedDateContext from '../../../context/selectedDateContext'
+import DownloadNeInvoicesContext from '../../../context/donwloadNewInvoicesContext'
 
 function Aside(props)
 {
     const someInvoiceSelectedContext = useContext(SomeInvoiceSelectedContext)
     const loadingContext = useContext(HomeLoadingContext)
     const messageContext = useContext(MessageContext)
+    const newInvoicesContext = useContext(DownloadNeInvoicesContext)
 
     const [getLoading,setGetLoading] = useState(false)
     
@@ -29,12 +32,13 @@ function Aside(props)
     
         try
         {
-            const response = await axios.get(`${ApiAddress}/downloadInvoices`)
-            console.log(response)
+            await axios.get(`${ApiAddress}/downloadInvoices`)
+            newInvoicesContext.setNewInvoices(true)
+            setGetLoading(false)
         }
         catch(ex)
         {
-            if(ex.response.status === 429)
+            if(ex.status === 429 && ex.response?.data?.message)
             {
                 if(Array.isArray(ex.response.data.message))
                 {

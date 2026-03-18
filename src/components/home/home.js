@@ -7,6 +7,7 @@ import SomeInvoiceSelectedContext from '../../context/someInvoiceSelectedContext
 import HomeLoadingContext from '../../context/homeLoadingContext'
 import MessageContext from '../../context/messageContext'
 import Message from '../message/message'
+import DownloadNeInvoicesContext from '../../context/donwloadNewInvoicesContext'
 
 function Home()
 {
@@ -17,6 +18,7 @@ function Home()
 
     const [homeLoading,setHomeLoading] = useState(true)
     const [someInvoiceSelected,setSomeInvoiceSelected] = useState(false)
+    const [newInvoices,setNewInvoices] = useState(false)
     const messageContext = useContext(MessageContext)
 
     const showAsideSetter = () =>
@@ -32,7 +34,7 @@ function Home()
     },[showAside])
 
     return(
-        
+        <DownloadNeInvoicesContext.Provider value={{newInvoices,setNewInvoices}}>
         <HomeLoadingContext.Provider value={{loading:homeLoading,setLoading:setHomeLoading}}>
         <SomeInvoiceSelectedContext.Provider value={{someInvoiceSelected,setSomeInvoiceSelected}}>
         <SelectedDateContext.Provider value={{date,setDate}}>
@@ -44,6 +46,7 @@ function Home()
         </SelectedDateContext.Provider>
         </SomeInvoiceSelectedContext.Provider>
         </HomeLoadingContext.Provider>
+        </DownloadNeInvoicesContext.Provider>
     )
 }
 

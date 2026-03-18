@@ -10,6 +10,7 @@ import SomeInvoiceSelectedContext from '../../../context/someInvoiceSelectedCont
 import SelectedDateContext from '../../../context/selectedDateContext'
 import HomeLoadingContext from '../../../context/homeLoadingContext'
 import MessageContext from '../../../context/messageContext'
+import DownloadNeInvoicesContext from '../../../context/donwloadNewInvoicesContext'
 
 function InvoicesContainer(props)
 {
@@ -22,6 +23,7 @@ function InvoicesContainer(props)
     const messageContext = useContext(MessageContext)
     const someInvoiceSelectedContext = useContext(SomeInvoiceSelectedContext)
     const dateContext = useContext(SelectedDateContext)
+    const newInvoicesContext = useContext(DownloadNeInvoicesContext)
 
     const listRef = useRef()
 
@@ -67,6 +69,14 @@ function InvoicesContainer(props)
         }, 50);
     },[dateFilter])
 
+    useEffect(()=>{
+        if(newInvoicesContext.newInvoices)
+        {
+            setData([])
+            getInvoices()
+            newInvoicesContext.setNewInvoices(false)
+        }
+    },[newInvoicesContext.newInvoices])
 
     const changeSelection = (el) =>
     {
