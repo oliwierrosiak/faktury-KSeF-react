@@ -75,15 +75,12 @@ function Invoice()
             {!loading && !invoiceError &&<>
             
                 <header className={styles.header}>
-                    <section className={styles.invoiceInfo}>
-                        <h1 className={invoiceData.action === 'notRecord'?styles.h1Overline:''}>Faktura nr: {invoiceData.invoiceNumber}</h1>
-                        <p>Numer KSeF: {invoiceData.ksefNumber}</p>
-                        <p>Data wystawienia: {invoiceData.issueDate}</p>
-                        <p>Rodzaj faktury: {invoiceData.invoiceType}</p>
-                    </section>
-                    <section className={styles.invoiceAction}>
-                        <h2>{transformInvoiceAction(invoiceData.action)}</h2>
-                    </section>
+                    <h1 className={invoiceData.action === 'notRecord'?styles.h1Overline:''}>Faktura nr: {invoiceData.invoiceNumber}</h1>
+                    <p>Numer KSeF: {invoiceData.ksefNumber}</p>
+                    <p>Data wystawienia: {invoiceData.issueDate}</p>
+                    <p>Rodzaj faktury: {invoiceData.invoiceType}</p>
+
+                    <h2 className={styles.invoiceAction}>{transformInvoiceAction(invoiceData.action)}</h2>
                 </header>
 
                 <article className={styles.buyerSellerInfo}>
@@ -105,7 +102,7 @@ function Invoice()
 
                 <article className={styles.table}>
                     <div className={`${styles.tableHeaderItem} ${styles.leftTopRadius}`}>Nazwa</div>
-                    <div className={styles.tableHeaderItem}>Wartość Brutto</div>
+                    <div className={styles.tableHeaderItem}>Wartość</div>
 
                     <div className={styles.tableHeaderItem}>
                         Akcja
