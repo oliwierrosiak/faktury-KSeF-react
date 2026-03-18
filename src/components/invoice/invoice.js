@@ -14,7 +14,7 @@ function Invoice()
 {
 
     const [loading,setLoading] = useState(true)
-    const [invoiceError,setInvoiceError] = useState(false)
+    const [invoiceError,setInvoiceError] = useState({info:'',details:'',exist:false})
     const [invoiceData,setInvoiceData] = useState({})
 
     const navigate = useNavigate()
@@ -31,7 +31,23 @@ function Invoice()
         }
         catch(ex)
         {
-            setInvoiceError(true)
+            if(ex.status == 429 && ex.response?.data?.details)
+            {
+                console.log(ex.response.data)
+                setInvoiceError({
+                    info:`Nie udało się pobrać danych pozycji faktury.`,
+                    details: `${ex.response.data.details}`,
+                    exist:true,
+                })
+            }
+            else
+            {
+                setInvoiceError({
+                    info:'Nie udało się pobrać danych faktury',
+                    details:'',
+                    exist:true,
+                })
+            }
             setLoading(false)
         }
     }
@@ -67,12 +83,16 @@ function Invoice()
                 </div>
             </div>}
 
-            {invoiceError &&<div className={styles.errorContainer}>
+            {invoiceError.exist &&<div className={styles.errorContainer}>
                 <InvoicesNotFound class={styles.invoiceError}/>
-                <h2>Nie udało się pobrać danych faktury</h2>
+                <h2>{invoiceError.info}</h2>
+                {invoiceError.details && <h3>
+                    <mark className={styles.markError}>Błąd KSeF: </mark>
+                    {invoiceError.details}
+                    </h3>}
             </div>}
 
-            {!loading && !invoiceError &&<>
+            {!loading && !invoiceError.exist &&<>
             
                 <header className={styles.header}>
                     <h1 className={invoiceData.action === 'notRecord'?styles.h1Overline:''}>Faktura nr: {invoiceData.invoiceNumber}</h1>

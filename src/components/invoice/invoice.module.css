@@ -66,6 +66,23 @@
     color: #6B7280;
     font-family: "Inter", sans-serif;
 }
+.errorContainer>h3
+{
+    font-weight:900;
+    font-size: 1.2rem;
+    padding: 0 20rem;
+    text-align: center;
+    color: #6B7280;
+    font-family: "Inter", sans-serif;
+}
+.markError
+{
+    font-weight:900;
+    font-size: 1.2rem;
+    font-family: "Inter", sans-serif;
+    color: #3B82F6;
+    background: none;
+}
 .back
 {
     width: 2rem;
