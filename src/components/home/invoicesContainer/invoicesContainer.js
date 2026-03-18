@@ -14,15 +14,29 @@ import DownloadNeInvoicesContext from '../../../context/donwloadNewInvoicesConte
 
 function InvoicesContainer(props)
 {
+    const dateContext = useContext(SelectedDateContext)
+
+    const dateFilterSetter = () =>
+    {
+        if(dateContext.date.month !== null && dateContext.date.year)
+        {
+            return `${dateContext.date.year}-${dateContext.date.month+1}-01`
+        }
+        else
+        {
+            return 'all'
+        }
+    }
+
     const [data,setData] = useState([])
     const [error,setError] = useState({type:null,info:''})
     const [allItemsSelected,setAllItemsSelected] = useState(false)
-    const [dateFilter,setDateFilter] = useState('all')
+    const [dateFilter,setDateFilter] = useState(dateFilterSetter())
 
     const loadingContext = useContext(HomeLoadingContext)
     const messageContext = useContext(MessageContext)
     const someInvoiceSelectedContext = useContext(SomeInvoiceSelectedContext)
-    const dateContext = useContext(SelectedDateContext)
+   
     const newInvoicesContext = useContext(DownloadNeInvoicesContext)
 
     const listRef = useRef()

@@ -3,27 +3,56 @@ import ArrowIcon from '../../../../assets/svg/arrowIcon'
 import styles from './calender.module.css'
 import SelectedDateContext from '../../../../context/selectedDateContext'
 import HomeLoadingContext from '../../../../context/homeLoadingContext'
+import DownloadNeInvoicesContext from '../../../../context/donwloadNewInvoicesContext'
 
 function Calender()
 {
     const date = new Date()
 
-    const [year,setYear] = useState(date.getFullYear())
-    const [currentMonth,setCurrentMonth] = useState(date.getMonth())
-    const [selectedMonth,setSelectedMonth] = useState(null)
-
     const selectedDateContext = useContext(SelectedDateContext)
+    const newInvoicesContext = useContext(DownloadNeInvoicesContext)
+
+    const yearSetter = () =>
+    {
+        if(selectedDateContext.date.year != null)
+        {
+            return selectedDateContext.date.year
+        }
+        else
+        {
+            return date.getFullYear()
+
+        }
+    }
+
+    const selectedMonthSetter = () =>
+    {
+        if(selectedDateContext.date.month != null)
+        {
+            return selectedDateContext.date.month
+        }
+        else
+        {
+            return null
+
+        }
+    }
+
+    const [year,setYear] = useState(yearSetter())
+    const [currentMonth,setCurrentMonth] = useState(date.getMonth())
+    const [selectedMonth,setSelectedMonth] = useState(selectedMonthSetter())
+
     const loadingContext = useContext(HomeLoadingContext)
 
     useEffect(()=>{
-        if(!loadingContext.loading)
+        if(newInvoicesContext.newInvoices)
         {
             setYear(date.getFullYear())
             setCurrentMonth(date.getMonth())
             setSelectedMonth(null)
 
         }
-    },[loadingContext.loading])
+    },[newInvoicesContext.newInvoices])
 
     const setNewYear = (e,dir) =>
     {

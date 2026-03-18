@@ -91,14 +91,15 @@ function Invoice()
                         <h2>Sprzedawca</h2>
                         <div className={styles.line}></div>
                         <p className={styles.sectionItem}>Nazwa: {invoiceData.seller?.name}</p>
-                        <p className={styles.sectionItem}>NIP: {invoiceData.seller?.nip}</p>
+                        {invoiceData.seller?.nip && <p className={styles.sectionItem}>NIP: {invoiceData.seller.nip}</p>}
                     </section>
 
                     <section className={styles.section}>
                         <h2>Nabywca</h2>
                         <div className={styles.line}></div>
                         <p className={styles.sectionItem}>Nazwa: {invoiceData.buyer?.name}</p>
-                        <p className={styles.sectionItem}>NIP: {invoiceData.buyer?.nip}</p>
+                        {invoiceData.buyer?.nip && <p className={styles.sectionItem}>NIP: {invoiceData.buyer.nip}</p>}
+                        {invoiceData.buyer?.identifier?.type === "Nip" && <p className={styles.sectionItem}>NIP: {invoiceData.buyer.identifier.value}</p>}
                     </section>
                 </article>
 

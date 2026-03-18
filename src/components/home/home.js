@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react'
 import Aside from './aside/aside'
 import styles from './home.module.css'
 import Main from './main/main'
-import SelectedDateContext from '../../context/selectedDateContext'
 import SomeInvoiceSelectedContext from '../../context/someInvoiceSelectedContext'
 import HomeLoadingContext from '../../context/homeLoadingContext'
 import MessageContext from '../../context/messageContext'
@@ -11,10 +10,6 @@ import DownloadNeInvoicesContext from '../../context/donwloadNewInvoicesContext'
 
 function Home()
 {
-    const [date,setDate] = useState({
-        month:null,
-        year:new Date().getFullYear()
-    })
 
     const [homeLoading,setHomeLoading] = useState(true)
     const [someInvoiceSelected,setSomeInvoiceSelected] = useState(false)
@@ -37,13 +32,12 @@ function Home()
         <DownloadNeInvoicesContext.Provider value={{newInvoices,setNewInvoices}}>
         <HomeLoadingContext.Provider value={{loading:homeLoading,setLoading:setHomeLoading}}>
         <SomeInvoiceSelectedContext.Provider value={{someInvoiceSelected,setSomeInvoiceSelected}}>
-        <SelectedDateContext.Provider value={{date,setDate}}>
+        
         <div className={styles.container}>
             <Aside showAside={showAside} setShowAside={setShowAside}/>
             <Main showAside={showAside}/>
             {messageContext.message && <Message/>}
         </div>
-        </SelectedDateContext.Provider>
         </SomeInvoiceSelectedContext.Provider>
         </HomeLoadingContext.Provider>
         </DownloadNeInvoicesContext.Provider>
