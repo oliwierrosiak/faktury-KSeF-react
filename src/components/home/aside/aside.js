@@ -69,7 +69,9 @@ function Aside(props)
             }
             console.log(invoiceSelectedContext.invoiceSelected)
             downloadLoadingContext.setDownloadLoading(true)
-            const response = await axios.post(`${ApiAddress}/generatePdf`)
+            const response = await axios.post(`${ApiAddress}/generatePdf`,{
+                selected: invoiceSelectedContext.invoiceSelected
+            })
             console.log(response)
         }
         catch(ex)
