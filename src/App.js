@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/home/home';
 import Invoice from './components/invoice/invoice'
 import MessageContext from './context/messageContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SelectedDateContext from './context/selectedDateContext';
+import DownloadLoadingContext from './context/downloadLoadingContext';
+import InvoiceSelectedContext from './context/InvoiceSelectedContext';
 
 function App() {
 
@@ -13,9 +15,14 @@ function App() {
         year:new Date().getFullYear()
     })
 
+  const [invoiceSelected,setInvoiceSelected] = useState([])
   const [message,setMessage] = useState('')
+  const [downloadLoading,setDownloadLoading] = useState(false)
+
 
   return (
+    <InvoiceSelectedContext.Provider value={{invoiceSelected,setInvoiceSelected}}>
+    <DownloadLoadingContext.Provider value={{downloadLoading,setDownloadLoading}}>
     <SelectedDateContext.Provider value={{date,setDate}}>
     <MessageContext.Provider value={{message,setMessage}}>
     <Router>
@@ -26,6 +33,8 @@ function App() {
     </Router>
     </MessageContext.Provider>
     </SelectedDateContext.Provider>
+    </DownloadLoadingContext.Provider>
+    </InvoiceSelectedContext.Provider>
   );
 }
 

@@ -1,11 +1,20 @@
-import { useEffect, useId, useState } from 'react'
+import { useContext, useEffect, useId, useState } from 'react'
 import styles from './invoiceElement.module.css'
 import { useNavigate } from 'react-router-dom'
+import InvoiceSelectedContext from '../../../../context/InvoiceSelectedContext'
 
 function InvoiceElement(props)
 {
 
     const [displaySelectionList,setDisplaySelectionList] = useState(false)
+    const invoiceSelectedContext = useContext(InvoiceSelectedContext)
+
+    const selectedSetter = () =>
+    {
+        return invoiceSelectedContext.invoiceSelected.includes(props._id)?true:false
+    }
+
+    const [selected,setSelected] = useState(selectedSetter())
 
     const id = useId()
 
@@ -49,6 +58,27 @@ function InvoiceElement(props)
         }
     }
 
+    const selectItem = () =>
+    {
+        if(invoiceSelectedContext.invoiceSelected.includes(props._id))
+        {
+            const invoices = invoiceSelectedContext.invoiceSelected
+            const newInvoices = invoices.filter(x=>x!=props._id)
+            invoiceSelectedContext.setInvoiceSelected(newInvoices)
+            setSelected(false)
+        }
+        else
+        {
+            invoiceSelectedContext.setInvoiceSelected(prev=>[...prev,props._id])
+            setSelected(true)
+
+        }
+    }
+
+    useEffect(()=>{
+        setSelected(selectedSetter())
+    },[invoiceSelectedContext.invoiceSelected])
+
     return(
         <li onClick={redirection} className={`${styles.item} ${props.action === "notRecord"?styles.overlineItems:''}`}>
             <div className={styles.element}>
@@ -74,7 +104,7 @@ function InvoiceElement(props)
                 </ul>
             </div>
 
-            <div onClick={e=>props.changeSelection(props._id)} className={`${styles.checkbox} ${props.select?styles.checkboxSelected:''}`}></div>
+            <div onClick={selectItem} className={`${styles.checkbox} ${selected?styles.checkboxSelected:''}`}></div>
         </li>
     )
 }

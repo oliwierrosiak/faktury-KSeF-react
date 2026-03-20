@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import Aside from './aside/aside'
 import styles from './home.module.css'
 import Main from './main/main'
-import SomeInvoiceSelectedContext from '../../context/someInvoiceSelectedContext'
+import InvoiceSelectedContext from '../../context/InvoiceSelectedContext'
 import HomeLoadingContext from '../../context/homeLoadingContext'
 import MessageContext from '../../context/messageContext'
 import Message from '../message/message'
@@ -12,7 +12,6 @@ function Home()
 {
 
     const [homeLoading,setHomeLoading] = useState(true)
-    const [someInvoiceSelected,setSomeInvoiceSelected] = useState(false)
     const [newInvoices,setNewInvoices] = useState(false)
     const messageContext = useContext(MessageContext)
 
@@ -31,14 +30,11 @@ function Home()
     return(
         <DownloadNeInvoicesContext.Provider value={{newInvoices,setNewInvoices}}>
         <HomeLoadingContext.Provider value={{loading:homeLoading,setLoading:setHomeLoading}}>
-        <SomeInvoiceSelectedContext.Provider value={{someInvoiceSelected,setSomeInvoiceSelected}}>
-        
         <div className={styles.container}>
             <Aside showAside={showAside} setShowAside={setShowAside}/>
             <Main showAside={showAside}/>
             {messageContext.message && <Message/>}
         </div>
-        </SomeInvoiceSelectedContext.Provider>
         </HomeLoadingContext.Provider>
         </DownloadNeInvoicesContext.Provider>
     )

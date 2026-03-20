@@ -6,7 +6,7 @@ import InvoicesNotFound from '../../../assets/svg/invoicesNotFoundIcon'
 import ConnectionErrorIcon from '../../../assets/svg/connectionErrorIcon'
 import InvoiceElement from './invoiceElement/invoiceElement'
 import LoadingIcon from '../../../assets/svg/loadingIcon'
-import SomeInvoiceSelectedContext from '../../../context/someInvoiceSelectedContext'
+import InvoiceSelectedContext from '../../../context/InvoiceSelectedContext'
 import SelectedDateContext from '../../../context/selectedDateContext'
 import HomeLoadingContext from '../../../context/homeLoadingContext'
 import MessageContext from '../../../context/messageContext'
@@ -35,7 +35,7 @@ function InvoicesContainer(props)
 
     const loadingContext = useContext(HomeLoadingContext)
     const messageContext = useContext(MessageContext)
-    const someInvoiceSelectedContext = useContext(SomeInvoiceSelectedContext)
+    const invoiceSelectedContext = useContext(InvoiceSelectedContext)
    
     const newInvoicesContext = useContext(DownloadNeInvoicesContext)
 
@@ -49,6 +49,16 @@ function InvoicesContainer(props)
             setData(prev=>[...prev,...response.data])
             loadingContext.setLoading(false)
             setError({type:null,info:''})
+            const data = response.data
+            const selected = invoiceSelectedContext.invoiceSelected
+            const newSelected = selected.filter(x=>{
+                const exist = data.findIndex(y=>y._id === x)
+                if(exist != -1)
+                {
+                    return x
+                }
+            })
+            invoiceSelectedContext.setInvoiceSelected(newSelected)
         }
         catch(ex)
         {
@@ -135,28 +145,29 @@ function InvoicesContainer(props)
         sendInvoiceState(el,action)
     }
 
+    const selectAll = () =>
+    {
+        if(invoiceSelectedContext.invoiceSelected.length === data.length)
+        {
+            invoiceSelectedContext.setInvoiceSelected([])
+        }
+        else
+        {
+            const allInvoices = data.map(x=>x._id)
+            invoiceSelectedContext.setInvoiceSelected(allInvoices)
+        }
+    }
+
     useEffect(()=>{
-        if(!data.length)
+        if(invoiceSelectedContext.invoiceSelected.length != 0 && invoiceSelectedContext.invoiceSelected.length === data.length)
+        {
+            setAllItemsSelected(true)
+        }
+        else
         {
             setAllItemsSelected(false)
-            return
         }
-        let someInvoiceSelected = false
-        let allSelected = true
-        data.forEach(x=>{
-            if(!x.select)
-            {
-                allSelected = false
-            }else
-            {
-                someInvoiceSelected = true
-            }
-        })
-        someInvoiceSelectedContext.setSomeInvoiceSelected(someInvoiceSelected)
-        setAllItemsSelected(allSelected)
-
-    },[data])
-
+    },[invoiceSelectedContext.invoiceSelected,dateFilter])
 
     return(
         <div className={styles.container}>
@@ -173,7 +184,7 @@ function InvoicesContainer(props)
                     <div className={styles.topBarElement}>Numer Faktury</div>
                     <div className={styles.topBarElement}>Data Wystawienia</div>
                     <div className={styles.topBarElement}>Kwota Brutto</div>
-                    <button className={styles.checkAll} onClick={e=>changeSelection('all')}>{allItemsSelected?`Odznacz Wszystkie (${data.length})`:`Zaznacz Wszystkie (${data.length})`}</button>
+                    <button className={styles.checkAll} onClick={selectAll}>{allItemsSelected?`Odznacz Wszystkie (${data.length})`:`Zaznacz Wszystkie (${data.length})`}</button>
                 </div>}
 
                 {error.type ?

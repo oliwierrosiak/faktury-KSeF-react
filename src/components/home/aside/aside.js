@@ -5,24 +5,25 @@ import PDFIcon from '../../../assets/svg/pdfIcon'
 import styles from './aside.module.css'
 import Calender from './calender/calender'
 import Search from './search/search'
-import SomeInvoiceSelectedContext from '../../../context/someInvoiceSelectedContext'
+import InvoiceSelectedContext from '../../../context/InvoiceSelectedContext'
 import HomeLoadingContext from '../../../context/homeLoadingContext'
 import LoadingIcon from '../../../assets/svg/loadingIcon'
 import axios from 'axios'
 import ApiAddress from '../../../ApiAddress'
 import MessageContext from '../../../context/messageContext'
-import SelectedDateContext from '../../../context/selectedDateContext'
 import DownloadNeInvoicesContext from '../../../context/donwloadNewInvoicesContext'
+import DownloadLoadingContext from '../../../context/downloadLoadingContext'
 
 function Aside(props)
 {
-    const someInvoiceSelectedContext = useContext(SomeInvoiceSelectedContext)
+    const invoiceSelectedContext = useContext(InvoiceSelectedContext)
     const loadingContext = useContext(HomeLoadingContext)
     const messageContext = useContext(MessageContext)
     const newInvoicesContext = useContext(DownloadNeInvoicesContext)
 
     const [getLoading,setGetLoading] = useState(false)
     
+    const downloadLoadingContext = useContext(DownloadLoadingContext)
 
     const getInvoices = async()=>
     {
@@ -58,6 +59,25 @@ function Aside(props)
         }
     }
 
+    const sendInvoices = async()=>
+    {
+        try
+        {
+            if(!invoiceSelectedContext.invoiceSelected || downloadLoadingContext.downloadLoading)
+            {
+                return
+            }
+            console.log(invoiceSelectedContext.invoiceSelected)
+            downloadLoadingContext.setDownloadLoading(true)
+            const response = await axios.post(`${ApiAddress}/generatePdf`)
+            console.log(response)
+        }
+        catch(ex)
+        {
+            console.log(ex)
+        }
+    }
+
     return(
         <aside className={`${styles.aside} ${!props.showAside?styles.hideAside:''}`}>
             <div className={styles.arrow} onClick={e=>props.setShowAside(!props.showAside)}>
@@ -84,9 +104,11 @@ function Aside(props)
                     Pobierz Faktury
                     </>}
                     </button>
-                <button className={`${styles.btn} ${styles.generate} ${someInvoiceSelectedContext.someInvoiceSelected && !getLoading?'':styles.noneInvoiceSelected}`}>
-                    <PDFIcon class={styles.btnSVG}/>
-                    Generuj PDF
+                <button className={`${styles.btn} ${styles.generate} ${invoiceSelectedContext.invoiceSelected.length && !getLoading && !downloadLoadingContext.downloadLoading?'':styles.noneInvoiceSelected}`} onClick={sendInvoices}>
+                    {downloadLoadingContext.downloadLoading?<div className={styles.btnLoadingContainer}><LoadingIcon /></div>:<>
+                        <PDFIcon class={styles.btnSVG}/>
+                        Generuj PDF
+                    </>}
                 </button>
             </section>
 
