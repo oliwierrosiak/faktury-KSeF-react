@@ -71,8 +71,14 @@ function Aside(props)
             downloadLoadingContext.setDownloadLoading(true)
             const response = await axios.post(`${ApiAddress}/generatePdf`,{
                 selected: invoiceSelectedContext.invoiceSelected
-            })
-            console.log(response)
+            },{responseType:"blob"})
+
+            const url = URL.createObjectURL(response.data)
+
+            const a = document.createElement('a')
+            a.href = url
+            a.download = 'faktury.zip'
+            a.click()
         }
         catch(ex)
         {
