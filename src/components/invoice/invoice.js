@@ -36,7 +36,6 @@ function Invoice()
         {
             if(ex.status == 429 && ex.response?.data?.details)
             {
-                console.log(ex.response.data)
                 setInvoiceError({
                     info:`Nie udało się pobrać danych pozycji faktury.`,
                     details: `${ex.response.data.details}`,
@@ -96,7 +95,6 @@ function Invoice()
         }
         catch(ex)
         {
-            console.log(ex)
             messageContext.setMessage("Nie udało się zapisać uwag do faktury")
         }
     }
@@ -114,7 +112,6 @@ function Invoice()
         }
         catch(ex)
         {
-            console.log(ex)
             messageContext.setMessage("Nie udało się zmienić akcji faktury")
         }
     }
@@ -220,7 +217,7 @@ function Invoice()
 
             <article className={styles.commentsArticle}>
                 <h2 className={styles.commentsHeader}>Uwagi</h2>
-                <textarea class={styles.textArea} placeholder='Wprowadź uwagi dla tej faktury...' value={textAreaValue} onChange={e=>setTextAreaValue(e.target.value)} onBlur={saveComments}></textarea>
+                <textarea className={styles.textArea} placeholder='Wprowadź uwagi dla tej faktury...' value={textAreaValue} onChange={e=>setTextAreaValue(e.target.value)} onBlur={saveComments}></textarea>
             </article>
 
             </main>
