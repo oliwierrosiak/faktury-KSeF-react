@@ -68,8 +68,21 @@ function Invoice()
         }
     }
 
+    const windowClick = (el) =>
+    {
+        if(el.target.closest(`.${styles.changeAction}`) === null)
+        {
+            setDisplayActionMenu(false)
+        }
+    }
+
     useEffect(()=>{
+        window.addEventListener("click",windowClick)
         getInvoiceData()
+        return()=>
+        {
+            window.removeEventListener("click",windowClick)
+        }
     },[])
 
     const saveComments = async() =>
