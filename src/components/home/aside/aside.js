@@ -79,12 +79,12 @@ function Aside(props)
             a.download = 'faktury.pdf'
             a.click()
             downloadLoadingContext.setDownloadLoading(false)
-            // usunąc zaznaczenie
+            invoiceSelectedContext.setInvoiceSelected([])
         }
         catch(ex)
         {
-            console.log(ex)
-            // obsłużyć błąd pobiernia
+            downloadLoadingContext.setDownloadLoading(false)
+            messageContext.setMessage("Błąd serwera przy generowaniu faktur")
         }
     }
 
