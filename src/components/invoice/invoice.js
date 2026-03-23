@@ -178,7 +178,7 @@ function Invoice()
                         {invoiceData.buyer?.nip && <p className={styles.sectionItem}>NIP: {invoiceData.buyer.nip}</p>}
                         {invoiceData.buyer?.identifier?.type === "Nip" && <p className={styles.sectionItem}>NIP: {invoiceData.buyer.identifier.value}</p>}
                     </section>
-                </article>
+                </article>        
 
                 <article className={styles.table}>
                     <div className={`${styles.tableHeaderItem} ${styles.leftTopRadius}`}>Nazwa</div>
@@ -210,6 +210,13 @@ function Invoice()
                 </article>
 
             </>}
+
+            <article className={styles.payment}>
+                    <h2>Płatność</h2>
+                    <div className={styles.paymentLine}></div>
+                    <p>Metoda Płatności: {invoiceData.paymentMethod}</p>
+                    <p>{invoiceData.paymentDate}</p>
+            </article>
 
             <article className={styles.commentsArticle}>
                 <h2 className={styles.commentsHeader}>Uwagi</h2>

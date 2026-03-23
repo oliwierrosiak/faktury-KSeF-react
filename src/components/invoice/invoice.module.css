@@ -330,7 +330,6 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    padding-bottom: 3rem;
 }
 .sumTable
 {
@@ -458,6 +457,7 @@
     border-radius: 1rem;
     position: relative;
     padding: .3rem;
+    margin-bottom: 2rem;
 }
 .commentsHeader
 {
@@ -499,4 +499,37 @@
     border-radius: 10px;
     background-color: #60A5FA;
     cursor: default;
+}
+.payment
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap:.5rem;
+    align-items: center;
+}
+.payment>h2
+{
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding-left: .8rem;
+    color: #1F2937;
+    font-family: "Inter", sans-serif;
+    
+}
+.paymentLine
+{
+    width: 30%;
+    height: .2rem;
+    border-radius: 10px;
+    background-color: #6B7280;
+    margin-bottom: 1rem;
+}
+.payment>p
+{
+    padding: .3rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    color: #6B7280;
 }
