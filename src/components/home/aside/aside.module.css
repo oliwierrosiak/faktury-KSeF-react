@@ -14,6 +14,8 @@
     gap:1.5rem;
     justify-items: center;
     grid-template-rows: max-content .2rem auto .2rem max-content;
+    height: max-content;
+    min-height: 100svh;
 }
 .hideAside
 {
@@ -22,7 +24,6 @@
 .arrow
 {
     position: absolute;
-    /* top:1rem; */
     top:50%;
     translate: 0 -50%;
     width: 2rem;

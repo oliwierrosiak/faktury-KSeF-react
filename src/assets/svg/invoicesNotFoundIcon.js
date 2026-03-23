@@ -2,7 +2,7 @@ function InvoicesNotFound(props)
 {
     return(
         <svg className={props.class} viewBox="0 -0.5 17 17" >
-    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(2.000000, 0.000000)" fill="#6B7280">
             <path d="M9.016,3.984 L13.997,3.984 L9.016,0.016 L9.016,3.984 Z">
 

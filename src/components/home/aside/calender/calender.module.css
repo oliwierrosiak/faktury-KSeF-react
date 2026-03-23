@@ -20,7 +20,7 @@
 }
 .header>h2
 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 900;
      font-family: "Roboto Slab";
      color: #1F2937;
@@ -34,8 +34,8 @@
 }
 .arrow
 {
-    width: 2rem;
-    height: 2rem;
+    width: 1.8rem;
+    height: 1.8rem;
     cursor: pointer;
 }
 .arrowWhileLoading
@@ -54,7 +54,7 @@
     justify-content: center;
     align-items: center;
     padding: .6rem 0;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     border-radius: 1rem;
     cursor: pointer;
     font-weight: 600;
