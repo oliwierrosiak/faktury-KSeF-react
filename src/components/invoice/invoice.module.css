@@ -142,10 +142,61 @@
     display: flex;
     justify-self: center;
     align-self: center;
+    flex-direction: column;
+    gap:.8rem;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.invoiceAction>h2
+{
     font-size: 2.2rem;
     font-weight: 900;
     color: #3B82F6;
     font-family: "Poppins", sans-serif;
+}
+.changeAction
+{
+    outline: none;
+    font-size: 1rem;
+    padding: .4rem;
+    color: white;
+    border-radius: .5rem;
+    border: 0;
+    background-color: #8790a0;
+    cursor: pointer;
+    position: relative;
+    width: 50%;
+}
+.changeAction>h3
+{
+    font-family: "Roboto", sans-serif;
+    font-weight: 700; 
+    text-align: center;  
+}
+.actionList
+{
+    position: absolute;
+    left:0;
+    right: 0;
+    top:120%;
+    border-radius: .5rem;
+    list-style-type: none;
+    background-color: #595f6a;
+    overflow: hidden;
+}
+.actionList>li
+{
+    width: 100%;
+    text-align: center;
+    padding: .5rem;
+    font-size: 1.2rem;
+     font-family: "Roboto", sans-serif;
+     font-weight: 600;
+}
+.actionList>li:hover
+{
+        background-color: #8790a0;
 }
 .buyerSellerInfo
 {

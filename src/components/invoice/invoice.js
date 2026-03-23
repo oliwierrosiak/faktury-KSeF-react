@@ -17,6 +17,7 @@ function Invoice()
     const [invoiceError,setInvoiceError] = useState({info:'',details:'',exist:false})
     const [invoiceData,setInvoiceData] = useState({})
     const [textAreaValue,setTextAreaValue] = useState('')
+    const [displayActionMenu,setDisplayActionMenu] = useState(false)
 
     const navigate = useNavigate()
     const params = useParams()
@@ -87,6 +88,24 @@ function Invoice()
         }
     }
 
+    const changeAction = async(val) =>
+    {
+        try
+        {
+            await axios.put(`${ApiAddress}/invoiceActionUpdate`,{
+                id:params.id,
+                action:val
+            })
+            setLoading(true)
+            getInvoiceData()
+        }
+        catch(ex)
+        {
+            console.log(ex)
+            messageContext.setMessage("Nie udało się zmienić akcji faktury")
+        }
+    }
+
     return(
         <div className={styles.container}>
             <main className={styles.main}>
@@ -118,7 +137,17 @@ function Invoice()
                     <p>Data wystawienia: {invoiceData.issueDate}</p>
                     <p>Rodzaj faktury: {invoiceData.invoiceType}</p>
 
-                    <h2 className={styles.invoiceAction}>{transformInvoiceAction(invoiceData.action)}</h2>
+                    <div className={styles.invoiceAction}>
+                        <h2>{transformInvoiceAction(invoiceData.action)}</h2>
+                        <div className={styles.changeAction} onClick={e=>setDisplayActionMenu(!displayActionMenu)}>
+                            <h3>Zmień akcję</h3>
+                            {displayActionMenu && <ul className={styles.actionList}>
+                                <li onClick={e=>changeAction('')}>Brak</li>
+                                <li onClick={e=>changeAction('notRecord')}>Nie Księgować</li>
+                                <li onClick={e=>changeAction('cost')}>Koszt</li>
+                            </ul>}
+                        </div>
+                    </div>
                 </header>
 
                 <article className={styles.buyerSellerInfo}>
