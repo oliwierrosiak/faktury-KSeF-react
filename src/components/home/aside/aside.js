@@ -67,7 +67,6 @@ function Aside(props)
             {
                 return
             }
-            console.log(invoiceSelectedContext.invoiceSelected)
             downloadLoadingContext.setDownloadLoading(true)
             const response = await axios.post(`${ApiAddress}/generatePdf`,{
                 selected: invoiceSelectedContext.invoiceSelected
@@ -79,10 +78,13 @@ function Aside(props)
             a.href = url
             a.download = 'faktury.zip'
             a.click()
+            downloadLoadingContext.setDownloadLoading(false)
+            // usunąc zaznaczenie
         }
         catch(ex)
         {
             console.log(ex)
+            // obsłużyć błąd pobiernia
         }
     }
 

@@ -16,6 +16,7 @@ function Invoice()
     const [loading,setLoading] = useState(true)
     const [invoiceError,setInvoiceError] = useState({info:'',details:'',exist:false})
     const [invoiceData,setInvoiceData] = useState({})
+    const [textAreaValue,setTextAreaValue] = useState('')
 
     const navigate = useNavigate()
     const params = useParams()
@@ -27,6 +28,7 @@ function Invoice()
         {
             const response = await axios.get(`${ApiAddress}/getInvoiceData?id=${params.id}`)
             setInvoiceData(response.data)
+            setTextAreaValue(response.data.comments?response.data.comments:'')
             setLoading(false)
         }
         catch(ex)
@@ -68,6 +70,22 @@ function Invoice()
     useEffect(()=>{
         getInvoiceData()
     },[])
+
+    const saveComments = async() =>
+    {
+        try
+        {
+            await axios.post(`${ApiAddress}/updateInvoiceComments`,{
+                id:invoiceData._id,
+                comments:textAreaValue
+            })
+        }
+        catch(ex)
+        {
+            console.log(ex)
+            messageContext.setMessage("Nie udało się zapisać uwag do faktury")
+        }
+    }
 
     return(
         <div className={styles.container}>
@@ -150,6 +168,11 @@ function Invoice()
                 </article>
 
             </>}
+
+            <article className={styles.commentsArticle}>
+                <h2 className={styles.commentsHeader}>Uwagi</h2>
+                <textarea class={styles.textArea} placeholder='Wprowadź uwagi dla tej faktury...' value={textAreaValue} onChange={e=>setTextAreaValue(e.target.value)} onBlur={saveComments}></textarea>
+            </article>
 
             </main>
 

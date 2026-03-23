@@ -399,3 +399,53 @@
 {
     border-top-right-radius: .8rem;
 }
+.commentsArticle
+{
+    width: 80%;
+    align-self: center;
+    border:.2rem solid #6B7280;
+    border-radius: 1rem;
+    position: relative;
+    padding: .3rem;
+}
+.commentsHeader
+{
+    position: absolute;
+    height: 1.8rem;
+    padding: 0 1.5rem;
+    font-size: 1.5rem;
+    background-color: #F9FAFB;
+    top:-1rem;
+    left:50%;
+    translate: -50% 0;
+    font-family: "Inter", sans-serif;
+    color: #6B7280;
+    color: #1F2937;
+}
+.textArea
+{
+    width: 100%;
+    min-height: 12rem;
+    outline: none;
+    background: none;
+    border: 0;
+    padding: 1rem;
+    resize: none;
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+}
+.textArea::placeholder
+{
+    font-weight: 700;
+}
+.textArea::-webkit-scrollbar
+{
+    height: 0;
+    width: .5rem;
+}
+.textArea::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-color: #60A5FA;
+    cursor: default;
+}
