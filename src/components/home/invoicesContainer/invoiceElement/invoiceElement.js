@@ -90,7 +90,7 @@ function InvoiceElement(props)
             </div>
 
             <div className={styles.element}>
-                {props.grossAmount} {props.currency}
+                {props.grossAmount.toFixed(2)} {props.currency}
             </div>
 
             <div className={styles.line}></div>

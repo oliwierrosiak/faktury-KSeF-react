@@ -11,7 +11,6 @@
 .main
 {
     width: 75vw;
-    min-height: calc(100svh - 4rem);
     background-color: #F9FAFB;
     position: relative;
     display: flex;
@@ -470,7 +469,6 @@
     left:50%;
     translate: -50% 0;
     font-family: "Inter", sans-serif;
-    color: #6B7280;
     color: #1F2937;
 }
 .textArea

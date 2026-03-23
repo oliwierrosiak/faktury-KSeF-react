@@ -76,7 +76,7 @@ function Aside(props)
 
             const a = document.createElement('a')
             a.href = url
-            a.download = 'faktury.zip'
+            a.download = 'faktury.pdf'
             a.click()
             downloadLoadingContext.setDownloadLoading(false)
             // usunąc zaznaczenie

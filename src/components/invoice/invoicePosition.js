@@ -134,7 +134,7 @@ function InvoicePosition(props)
     return(
         <>
             <div className={`${styles.tableItem} ${styles.nameItem} ${action === 'notRecord'?styles.elementOverline:''}`}>{props.name}</div>
-            <div className={`${styles.tableItem} ${action === 'notRecord'?styles.elementOverline:''}`}>{props.netAmount} PLN</div>
+            <div className={`${styles.tableItem} ${action === 'notRecord'?styles.elementOverline:''}`}>{props.grossAmount.toFixed(2)} {props.currency}</div>
             <div className={styles.tableItem}>
                 <div className={`
                     ${styles.action} ${actionLocked?styles.actionLocked:''}`} onClick={e=>setDisplayActionMenu(!displayActionMenu)} id={id}>

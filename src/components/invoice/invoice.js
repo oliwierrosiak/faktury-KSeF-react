@@ -182,7 +182,7 @@ function Invoice()
 
                 <article className={styles.table}>
                     <div className={`${styles.tableHeaderItem} ${styles.leftTopRadius}`}>Nazwa</div>
-                    <div className={styles.tableHeaderItem}>Wartość</div>
+                    <div className={styles.tableHeaderItem}>Wartość Brutto</div>
 
                     <div className={styles.tableHeaderItem}>
                         Akcja
@@ -192,7 +192,7 @@ function Invoice()
                         Komentarz
                     </div>
 
-                    {invoiceData.invoiceFields.map(x=><InvoicePosition key={Math.floor(Math.random()*100000)} getInvoiceData={getInvoiceData} setLoading={setLoading} invoiceAction={invoiceData.action} {...x}/>)}
+                    {invoiceData.invoiceFields.map(x=><InvoicePosition key={Math.floor(Math.random()*100000)} getInvoiceData={getInvoiceData} setLoading={setLoading} currency={invoiceData.currency} invoiceAction={invoiceData.action} {...x}/>)}
 
                 </article>
 
@@ -203,9 +203,9 @@ function Invoice()
                     <div className={`${styles.sumTableHeader} ${styles.tableBorderTop}`}>VAT</div>
                     <div className={`${styles.sumTableHeader} ${styles.tableBorderTop} ${styles.tableBorderRight}`}>Wartość Brutto</div>
                     <div className={`${styles.sumTableHeader} ${styles.tableBorderTop} ${styles.tableBorderLeft} ${styles.tableBorderBottom}`}>Razem</div>
-                    <div className={`${styles.sumTableItem} ${styles.tableBorderBottom}`}>{invoiceData.netAmount} PLN</div>
-                    <div className={`${styles.sumTableItem} ${styles.tableBorderBottom}`}>{invoiceData.vatAmount} PLN</div>
-                    <div className={`${styles.sumTableItem} ${styles.tableBorderBottom} ${styles.tableBorderRight} ${styles.bold}`}>{invoiceData.grossAmount} PLN</div>
+                    <div className={`${styles.sumTableItem} ${styles.tableBorderBottom}`}>{invoiceData.netAmount.toFixed(2)} {invoiceData.currency}</div>
+                    <div className={`${styles.sumTableItem} ${styles.tableBorderBottom}`}>{invoiceData.vatAmount.toFixed(2)} {invoiceData.currency}</div>
+                    <div className={`${styles.sumTableItem} ${styles.tableBorderBottom} ${styles.tableBorderRight} ${styles.bold}`}>{invoiceData.grossAmount.toFixed(2)} {invoiceData.currency}</div>
                     </div>
                 </article>
 
