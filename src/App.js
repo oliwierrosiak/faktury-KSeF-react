@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import SelectedDateContext from './context/selectedDateContext';
 import DownloadLoadingContext from './context/downloadLoadingContext';
 import InvoiceSelectedContext from './context/InvoiceSelectedContext';
+import NotFound404 from './components/404/notFound404';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/invoice/:id' element={<Invoice />}/>
+        <Route path='/*' element={<NotFound404 />}/>
       </Routes>
     </Router>
     </MessageContext.Provider>
