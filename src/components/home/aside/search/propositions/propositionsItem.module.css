@@ -1,10 +1,10 @@
 .li
 {
     width: 100%;
-    padding: .5rem 1rem;
+    padding: .5rem .8rem;
     display: grid;
-    grid-template-columns: 47% 47%;
-    gap:6%;
+    grid-template-columns: 3fr 2fr;
+    gap:.5rem;
     align-items: center;
     justify-items: center;
     cursor: pointer;
@@ -17,7 +17,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #6B7280;
-    font-size: 1rem;
+    font-size: .8rem;
     font-weight: 700;
     font-family: "Inter", sans-serif;
 }

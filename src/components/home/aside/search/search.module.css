@@ -5,7 +5,7 @@
     display: grid;
     grid-template-columns: 2rem auto 2rem;
     padding: .5rem;
-    border-radius:2rem;
+    border-radius:.8rem;
     cursor: pointer;
     position: relative;
 }
@@ -74,7 +74,7 @@
     left:0;
     right: 0;
     background-color: #bec1c7;
-    border-radius:1rem;
+    border-radius:.8rem;
     transform: scale(0);
     opacity: 0;
     transform-origin: top;

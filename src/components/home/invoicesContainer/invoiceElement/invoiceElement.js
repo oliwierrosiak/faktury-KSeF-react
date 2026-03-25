@@ -82,6 +82,9 @@ function InvoiceElement(props)
     return(
         <li onClick={redirection} className={`${styles.item} ${props.action === "notRecord"?styles.overlineItems:''}`}>
             <div className={styles.element}>
+                {props.seller?.name}
+            </div>
+            <div className={styles.element}>
                 {props.invoiceNumber}
             </div>
 

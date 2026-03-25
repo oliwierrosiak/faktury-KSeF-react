@@ -58,6 +58,7 @@ function InvoicesContainer(props)
                     return x
                 }
             })
+            console.log(response.data)
             invoiceSelectedContext.setInvoiceSelected(newSelected)
         }
         catch(ex)
@@ -181,8 +182,9 @@ function InvoicesContainer(props)
             :
             <>
                 {!error.type && <div className={styles.topMenu}>
+                    <div className={styles.topBarElement}>Sprzedawca</div>
                     <div className={styles.topBarElement}>Numer Faktury</div>
-                    <div className={styles.topBarElement}>Data Wystawienia</div>
+                    <div className={styles.topBarElement}>Data</div>
                     <div className={styles.topBarElement}>Kwota Brutto</div>
                     <button className={styles.checkAll} onClick={selectAll}>{allItemsSelected?`Odznacz Wszystkie (${data.length})`:`Zaznacz Wszystkie (${data.length})`}</button>
                 </div>}
