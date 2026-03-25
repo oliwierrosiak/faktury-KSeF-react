@@ -14,7 +14,7 @@
     max-width: 30rem;
     grid-template-columns: 1.5rem auto;
     gap:.5rem;
-    border-radius: 1rem;
+    border-radius: .5rem;
     overflow: hidden;
 }
 .displayContainerMessage

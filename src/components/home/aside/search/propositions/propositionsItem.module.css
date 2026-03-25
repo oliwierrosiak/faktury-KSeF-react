@@ -3,15 +3,13 @@
     width: 100%;
     padding: .5rem .8rem;
     display: grid;
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 4fr 3fr;
     gap:.5rem;
     align-items: center;
-    justify-items: center;
     cursor: pointer;
 }
 .item
 {
-    width: 100%;
     text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;

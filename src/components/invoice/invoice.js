@@ -178,18 +178,19 @@ function Invoice()
                 </article>        
 
                 <article className={styles.table}>
-                    <div className={`${styles.tableHeaderItem} ${styles.leftTopRadius}`}>Nazwa</div>
+                    <div className={styles.tableHeaderItem}>lp.</div>
+                    <div className={styles.tableHeaderItem}>Nazwa</div>
                     <div className={styles.tableHeaderItem}>Wartość Brutto</div>
 
                     <div className={styles.tableHeaderItem}>
                         Akcja
                     </div>
 
-                    <div className={`${styles.tableHeaderItem} ${styles.rightTopRadius}`}>
+                    <div className={styles.tableHeaderItem}>
                         Komentarz
                     </div>
 
-                    {invoiceData.invoiceFields.map(x=><InvoicePosition key={Math.floor(Math.random()*100000)} getInvoiceData={getInvoiceData} setLoading={setLoading} currency={invoiceData.currency} invoiceAction={invoiceData.action} {...x}/>)}
+                    {invoiceData.invoiceFields.map((x,idx)=><InvoicePosition index={idx} key={Math.floor(Math.random()*100000)} getInvoiceData={getInvoiceData} setLoading={setLoading} currency={invoiceData.currency} invoiceAction={invoiceData.action} {...x}/>)}
 
                 </article>
 
