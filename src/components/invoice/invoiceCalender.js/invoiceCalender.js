@@ -1,16 +1,62 @@
+import { useEffect, useState } from 'react'
 import ArrowIcon from '../../../assets/svg/arrowIcon'
 import styles from './invoiceCalender.module.css'
 
 function InvoiceCalender(props)
 {
+    const [date,setDate] = useState(new Date())
+    const months = ["Styczeń","Luty","Marzec","Kwiecień","Maj","Czerwiec","Lipiec","Sierpień","Wrzesień","Pażdziernik","Listopad","Grudzień"]
+
+    const [month,setMonth] = useState(months[date.getMonth()])
+    const [year,setYear] = useState(date.getFullYear())
+
+    const setNewMonth = (direction,e) =>
+    {
+        if(e.target.classList.contains(styles.arrowDisabled)) return
+        if(direction === 'back')
+        {
+            date.setMonth(date.getMonth()-1)
+            setMonth(months[date.getMonth()])
+            setYear(date.getFullYear())
+        }
+        else if(direction === 'forward')
+        {
+            date.setMonth(date.getMonth()+1)
+            setMonth(months[date.getMonth()])
+            setYear(date.getFullYear()) 
+        }
+    }
+
+    const checkArrowDisabled = () =>
+    {
+        const currentDate = new Date()
+        const selectedDate = new Date(date)
+        selectedDate.setMonth(selectedDate.getMonth()+1)
+        if(currentDate.toISOString() <= selectedDate.toISOString())
+        {
+            return styles.arrowDisabled
+        }
+        else
+        {
+            return ''
+        }
+    }
+
     return(
         <section className={styles.calender}>
             <header className={styles.header}>
                 <h2 className={styles.header1}>Data Opłacenia</h2>
                 <div className={styles.month}>
-                    <ArrowIcon class={`${styles.arrow} ${styles.arrowRotated}`}/>
-                    <h3>Marzec 2026</h3>
-                    <ArrowIcon class={`${styles.arrow} ${styles.arrowDisabled}`}/>
+                    <div className={styles.arrowContainer} onClick={e=>setNewMonth('back',e)}>
+                        <ArrowIcon class={`${styles.arrow} ${styles.arrowRotated}`}/>
+                    </div>
+
+                    <h3>{month} {year}</h3>
+
+                    <div className={styles.arrowContainer} onClick={e=>setNewMonth('forward',e)}>
+                        <ArrowIcon class={`${styles.arrow} ${checkArrowDisabled()}`}/>
+
+                    </div>
                 </div>
             </header>
             <div className={styles.calenderHeader}>Pon</div>
