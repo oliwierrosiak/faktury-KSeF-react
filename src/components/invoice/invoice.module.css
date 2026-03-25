@@ -434,14 +434,22 @@
 {
     background: none;
 }
-.commentsArticle
+.commentsAndCalenderArticle
 {
-    width: 80%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:5rem;
+    margin-bottom: 1rem;
+    justify-items: center;
+}
+.commentsSection
+{
+    width: 100%;
     align-self: center;
     border:.2rem solid #6B7280;
     position: relative;
     padding: .3rem;
-    margin-bottom: 1rem;
 }
 .commentsHeader
 {

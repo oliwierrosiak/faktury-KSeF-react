@@ -10,6 +10,7 @@ import InvoicePosition from './invoicePosition'
 import MessageContext from '../../context/messageContext'
 import Message from '../message/message'
 import TriangleIcon from '../../assets/svg/triangle'
+import InvoiceCalender from './invoiceCalender.js/invoiceCalender'
 
 function Invoice()
 {
@@ -276,9 +277,14 @@ function Invoice()
                     <p>{invoiceData.paymentDate}</p>
             </article>
 
-            <article className={styles.commentsArticle}>
-                <h2 className={styles.commentsHeader}>Uwagi</h2>
-                <textarea className={styles.textArea} placeholder='Wprowadź uwagi dla tej faktury...' value={textAreaValue} onChange={e=>setTextAreaValue(e.target.value)} onBlur={saveComments}></textarea>
+            <article className={styles.commentsAndCalenderArticle}>
+
+                <InvoiceCalender />
+
+                <section className={styles.commentsSection}>
+                    <h2 className={styles.commentsHeader}>Uwagi</h2>
+                    <textarea className={styles.textArea} placeholder='Wprowadź uwagi dla tej faktury...' value={textAreaValue} onChange={e=>setTextAreaValue(e.target.value)} onBlur={saveComments}></textarea>
+                </section>
             </article>
 
             </main>

@@ -1,0 +1,92 @@
+.calender
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    gap:.5rem 0;
+    cursor: default;
+}
+.header
+{
+    grid-column: 1/8;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: .3rem;
+    margin-left: 1rem;
+}
+.header1
+{
+    color: #1F2937;
+    font-family: "Inter", sans-serif;
+    font-size: 1.2rem;
+}
+.month
+{
+    color: #6B7280;
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:.5rem;
+}
+.month>h3
+{
+    
+    font-size: 1rem;
+}
+.calenderHeader
+{
+    height: 1rem;
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .8rem;
+    font-weight: 600;
+    color: #6B7280;
+    font-family: "Open Sans", sans-serif;
+    font-family: "Inter", sans-serif;
+}
+.calenderItem
+{
+    width:2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+    border-radius: .8rem;
+    cursor: pointer;
+}
+.calenderItem:hover
+{
+    background-color: #c6cfdf;
+}
+.arrow
+{
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: #1F2937;
+    cursor: pointer;
+}
+.arrowRotated
+{
+    rotate: 180deg;
+}
+.arrowDisabled
+{
+    fill: #aeb9ce;
+}
+.calenderItemSelected:hover,
+.calenderItemSelected
+{
+    background-color: #3B82F6;
+    color: white;
+}
