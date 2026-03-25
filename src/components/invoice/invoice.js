@@ -76,6 +76,10 @@ function Invoice()
         {
             setDisplayActionMenu(false)
         }
+        if(el.target.closest(`.${styles.actionTableHeaderItem}`) === null)
+        {
+            setDisplayFullActionList(false)
+        }
     }
 
     useEffect(()=>{

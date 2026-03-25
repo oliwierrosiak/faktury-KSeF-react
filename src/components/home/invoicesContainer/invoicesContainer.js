@@ -58,7 +58,6 @@ function InvoicesContainer(props)
                     return x
                 }
             })
-            console.log(response.data)
             invoiceSelectedContext.setInvoiceSelected(newSelected)
         }
         catch(ex)

@@ -524,6 +524,10 @@
     cursor: pointer;
     position: relative;
 }
+.actionTableHeaderItem::selection
+{
+    background:none;
+}
 .dropdownMenuIcon
 {
     margin-top: .1rem;
