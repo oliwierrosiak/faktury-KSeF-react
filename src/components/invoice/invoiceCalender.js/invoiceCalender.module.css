@@ -101,3 +101,12 @@
     background-color: #3B82F6;
     color: white;
 }
+.dayDisabled
+{
+    color: #aeb9ce;
+    cursor: default;
+}
+.dayDisabled:hover
+{
+    background: none;
+}
