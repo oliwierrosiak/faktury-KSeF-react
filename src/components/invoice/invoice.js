@@ -9,6 +9,7 @@ import axios from 'axios'
 import InvoicePosition from './invoicePosition'
 import MessageContext from '../../context/messageContext'
 import Message from '../message/message'
+import TriangleIcon from '../../assets/svg/triangle'
 
 function Invoice()
 {
@@ -18,6 +19,8 @@ function Invoice()
     const [invoiceData,setInvoiceData] = useState({})
     const [textAreaValue,setTextAreaValue] = useState('')
     const [displayActionMenu,setDisplayActionMenu] = useState(false)
+    const [displayFullActionList,setDisplayFullActionList] = useState(false)
+
 
     const navigate = useNavigate()
     const params = useParams()
@@ -116,6 +119,50 @@ function Invoice()
         }
     }
 
+    const changePositionAction = async(action) =>
+    {
+        try
+        {
+            const newFields = [...invoiceData.invoiceFields]
+            for(const item of newFields)
+            {
+                item.action = action
+                await axios.put(`${ApiAddress}/updateInvoicePositionAction`,{
+                invoiceId:params.id,
+                positionId:item._id,
+                action
+                })
+            }
+            setInvoiceData(prev=>{
+                const data = {...prev}
+                data.invoiceFields = newFields
+                return data
+            })
+        }
+        catch(ex)
+        {
+            messageContext.setMessage("Nie udało się zmienić akcji pozycji")
+        }
+    }
+
+    const positionActionChanged = (id,action) =>
+    {
+        setInvoiceData(prev=>{
+            const data = {...prev}
+            const item = data.invoiceFields.findIndex(x=>x._id === id)
+            data.invoiceFields[item].action = action
+            return data
+        })
+    }
+
+    const changeDisplayingList = () =>
+    {
+        if(invoiceData.action != 'notRecord' && invoiceData.action != 'cost')
+        {
+            setDisplayFullActionList(prev=>!prev)
+        }
+    }
+
     return(
         <div className={styles.container}>
             <main className={styles.main}>
@@ -182,15 +229,24 @@ function Invoice()
                     <div className={styles.tableHeaderItem}>Nazwa</div>
                     <div className={styles.tableHeaderItem}>Wartość Brutto</div>
 
-                    <div className={styles.tableHeaderItem}>
+                    <div className={`${styles.tableHeaderItem} ${styles.actionTableHeaderItem} ${invoiceData.action === 'cost' || invoiceData.action === 'notRecord'?styles.cursorDefault:''}`} onClick={changeDisplayingList}>
                         Akcja
+                        {invoiceData.action != 'notRecord' && invoiceData.action != 'cost'  && <TriangleIcon class={styles.dropdownMenuIcon}/>}
+
+                        {displayFullActionList && <ul className={styles.list}>
+                        <li onClick={e=>changePositionAction(null)}>--Wybierz Akcję--</li>
+                        <li onClick={e=>changePositionAction('notRecord')}>Nie Księgować</li>
+                        <li onClick={e=>changePositionAction('cost')}>Koszt</li>
+                        <li onClick={e=>changePositionAction("goods")}>Towar Handlowy</li>
+                        </ul>}
+                        
                     </div>
 
                     <div className={styles.tableHeaderItem}>
                         Komentarz
                     </div>
 
-                    {invoiceData.invoiceFields.map((x,idx)=><InvoicePosition index={idx} key={Math.floor(Math.random()*100000)} getInvoiceData={getInvoiceData} setLoading={setLoading} currency={invoiceData.currency} invoiceAction={invoiceData.action} {...x}/>)}
+                    {invoiceData.invoiceFields.map((x,idx)=><InvoicePosition index={idx} key={Math.floor(Math.random()*100000)} getInvoiceData={getInvoiceData} setLoading={setLoading} currency={invoiceData.currency} invoiceAction={invoiceData.action} positionActionChanged={positionActionChanged} {...x}/>)}
 
                 </article>
 

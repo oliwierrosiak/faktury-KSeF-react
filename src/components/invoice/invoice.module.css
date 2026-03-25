@@ -515,3 +515,24 @@
     font-family: "Inter", sans-serif;
     color: #6B7280;
 }
+.actionTableHeaderItem
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:.5rem;
+    cursor: pointer;
+    position: relative;
+}
+.dropdownMenuIcon
+{
+    margin-top: .1rem;
+    width: .8rem;
+    height: .8rem;
+    rotate: 180deg;
+    fill: rgb(250, 250, 250);
+}
+.cursorDefault
+{
+    cursor: default;
+}

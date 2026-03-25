@@ -19,22 +19,11 @@ function InvoicePosition(props)
         }
     }
 
-    const actionSetter = () =>
-    {
-        if(props.invoiceAction)
-        {
-            return props.invoiceAction
-        }
-
-        return props.action
-    }
-
     const [displayComment,setDisplayComment] = useState(props.comment?true:false)
 
     const [comment,setComment] = useState(props.comment?props.comment:'')
     
     const [displayActionMenu,setDisplayActionMenu] = useState(false)
-    const [action,setAction] = useState(actionSetter())
     const [actionLocked] = useState(checkInvoiceActionLocked(props.invoiceAction))
 
     const inputRef = useRef()
@@ -83,7 +72,7 @@ function InvoicePosition(props)
 
     const changePositionAction = async(action) =>
     {
-        setAction(action)
+        props.positionActionChanged(props._id,action)
         try
         {
             await axios.put(`${ApiAddress}/updateInvoicePositionAction`,{
@@ -131,15 +120,31 @@ function InvoicePosition(props)
         }
     },[])
 
+    const classSetter = () =>
+    {
+        if(props.invoiceAction === 'notRecord')
+        {
+            return styles.elementOverline
+        }
+        else if(props.action === 'notRecord' && (props.invoiceAction != 'notRecord' && props.invoiceAction != 'cost'))
+        {
+            return styles.elementOverline
+        }
+        else
+        {
+            return ''
+        }
+    }
+
     return(
         <>
             <div className={styles.tableItem}>{props.index+1}.</div>
-            <div className={`${styles.tableItem} ${styles.nameItem} ${action === 'notRecord'?styles.elementOverline:''}`}>{props.name}</div>
-            <div className={`${styles.tableItem} ${action === 'notRecord'?styles.elementOverline:''}`}>{props.grossAmount.toFixed(2)} {props.currency}</div>
+            <div className={`${styles.tableItem} ${styles.nameItem} ${classSetter()}`}>{props.name}</div>
+            <div className={`${styles.tableItem} ${classSetter()}`}>{props.grossAmount.toFixed(2)} {props.currency}</div>
             <div className={styles.tableItem}>
                 <div className={`
                     ${styles.action} ${actionLocked?styles.actionLocked:''}`} onClick={e=>setDisplayActionMenu(!displayActionMenu)} id={id}>
-                    <h3>{getActionPolishName(action)}</h3>
+                    <h3>{getActionPolishName(actionLocked?props.invoiceAction:props.action)}</h3>
                     {displayActionMenu && !actionLocked && <ul className={styles.list}>
                         <li onClick={e=>changePositionAction(null)}>--Wybierz Akcję--</li>
                         <li onClick={e=>changePositionAction('notRecord')}>Nie Księgować</li>
