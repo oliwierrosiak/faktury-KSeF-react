@@ -31,7 +31,6 @@ function InvoiceCalender(props)
     const [blankDays,setBlankDays] = useState([])
     const [endMonthDate,setEndMonthDate] = useState()
     const [days,setDays] = useState([])
-    const [arrowDisabled,setArrowDisabled] = useState(false)
     const [updater,setUpdater] = useState(false)
 
      useEffect(()=>{
@@ -42,13 +41,10 @@ function InvoiceCalender(props)
             setYear(date.getFullYear())
             setMonth(months[date.getMonth()])
             setSelectedDay(date.getDate())
-           const nextMonth = new Date()
-            nextMonth.setDate(nextMonth.getMonth()+1)
-            if(date.toISOString() >= nextMonth.toISOString())
-            {
-                setArrowDisabled(true)
-            }
+            
         }
+        const nextMonth = new Date()
+        nextMonth.setMonth(nextMonth.getMonth()+1)
         setEndMonthDate(endMonthDateSetter())
     },[])
 
@@ -84,22 +80,15 @@ function InvoiceCalender(props)
             date.setMonth(date.getMonth()-1)
             setMonth(months[date.getMonth()])
             setYear(date.getFullYear())
-            setArrowDisabled(false) 
-            console.log(date)
             setEndMonthDate(endMonthDateSetter())
         }
         else if(direction === 'forward')
         {
-            if(arrowDisabled) return
             date.setMonth(date.getMonth()+1)
             setMonth(months[date.getMonth()])
             setYear(date.getFullYear())
             const nextMonth = new Date()
-            nextMonth.setDate(nextMonth.getMonth()+1)
-            if(date.toISOString() >= nextMonth.toISOString())
-            {
-                setArrowDisabled(true)
-            }
+            nextMonth.setMonth(nextMonth.getMonth()+1)
             setEndMonthDate(endMonthDateSetter())
         }
         sendSelectedDate(null)
@@ -182,7 +171,7 @@ function InvoiceCalender(props)
                     <h3>{month} {year}</h3>
 
                     <div className={styles.arrowContainer} onClick={e=>setNewMonth('forward')}>
-                        <ArrowIcon class={`${styles.arrow} ${arrowDisabled?styles.arrowDisabled:''}`}/>
+                        <ArrowIcon class={`${styles.arrow}`}/>
 
                     </div>
                 </div>
