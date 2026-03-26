@@ -197,6 +197,7 @@ function Invoice()
                     <h1 className={invoiceData.action === 'notRecord'?styles.h1Overline:''}>Faktura nr: {invoiceData.invoiceNumber}</h1>
                     <p>Numer KSeF: {invoiceData.ksefNumber}</p>
                     <p>Data wystawienia: {invoiceData.issueDate}</p>
+                    {invoiceData.sellDate && <p>Data sprzedaży: {invoiceData.sellDate}</p>}
                     <p>Rodzaj faktury: {invoiceData.invoiceType}</p>
 
                     <div className={styles.invoiceAction}>
@@ -236,7 +237,7 @@ function Invoice()
 
                     <div className={`${styles.tableHeaderItem} ${styles.actionTableHeaderItem} ${invoiceData.action === 'cost' || invoiceData.action === 'notRecord'?styles.cursorDefault:''}`} onClick={changeDisplayingList}>
                         Akcja
-                        {invoiceData.action != 'notRecord' && invoiceData.action != 'cost'  && <TriangleIcon class={styles.dropdownMenuIcon}/>}
+                        {invoiceData.action != 'notRecord' && invoiceData.action != 'cost'  && <TriangleIcon class={`${styles.dropdownMenuIcon} ${displayFullActionList?styles.dropdownMenuRotated:''}`}/>}
 
                         {displayFullActionList && <ul className={styles.list}>
                         <li onClick={e=>changePositionAction(null)}>--Wybierz Akcję--</li>
