@@ -268,7 +268,7 @@ function Invoice()
                     </div>
                 </article>
 
-            </>}
+            
 
             <article className={styles.payment}>
                     <h2>Płatność</h2>
@@ -279,14 +279,14 @@ function Invoice()
 
             <article className={styles.commentsAndCalenderArticle}>
 
-                <InvoiceCalender />
+                <InvoiceCalender date={invoiceData.dateOfPayment}/>
 
                 <section className={styles.commentsSection}>
                     <h2 className={styles.commentsHeader}>Uwagi</h2>
                     <textarea className={styles.textArea} placeholder='Wprowadź uwagi dla tej faktury...' value={textAreaValue} onChange={e=>setTextAreaValue(e.target.value)} onBlur={saveComments}></textarea>
                 </section>
             </article>
-
+                </>}
             </main>
 
             {messageContext.message && <Message />}

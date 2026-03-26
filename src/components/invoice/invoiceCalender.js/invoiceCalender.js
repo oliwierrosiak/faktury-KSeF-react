@@ -1,27 +1,56 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import ArrowIcon from '../../../assets/svg/arrowIcon'
 import styles from './invoiceCalender.module.css'
+import ApiAddress from '../../../ApiAddress'
+import axios from 'axios'
+import MessageContext from '../../../context/messageContext'
+import { useParams } from 'react-router-dom'
 
 function InvoiceCalender(props)
 {
+    const messageContext = useContext(MessageContext)
+
     const endMonthDateSetter = () =>
     {
         const currentMonth = new Date(date)
         currentMonth.setMonth(currentMonth.getMonth()+1)
         currentMonth.setDate(1-1)
+        setUpdater(prev=>!prev)
         return currentMonth.getDate()
     }
 
+    const params = useParams()
+
     const [date,setDate] = useState(new Date())
+
     const months = ["Styczeń","Luty","Marzec","Kwiecień","Maj","Czerwiec","Lipiec","Sierpień","Wrzesień","Pażdziernik","Listopad","Grudzień"]
 
     const [month,setMonth] = useState(months[date.getMonth()])
     const [year,setYear] = useState(date.getFullYear())
     const [selectedDay,setSelectedDay] = useState(null)
     const [blankDays,setBlankDays] = useState([])
-    const [endMonthDate,setEndMonthDate] = useState(endMonthDateSetter)
+    const [endMonthDate,setEndMonthDate] = useState()
     const [days,setDays] = useState([])
-    const [arrowDisabled,setArrowDisabled] = useState(true)
+    const [arrowDisabled,setArrowDisabled] = useState(false)
+    const [updater,setUpdater] = useState(false)
+
+     useEffect(()=>{
+        if(props.date)
+        {
+            const date = new Date(props.date)
+            setDate(date)
+            setYear(date.getFullYear())
+            setMonth(months[date.getMonth()])
+            setSelectedDay(date.getDate())
+           const nextMonth = new Date()
+            nextMonth.setDate(nextMonth.getMonth()+1)
+            if(date.toISOString() >= nextMonth.toISOString())
+            {
+                setArrowDisabled(true)
+            }
+        }
+        setEndMonthDate(endMonthDateSetter())
+    },[])
 
     useEffect(()=>{
         const firstDay = new Date(date)
@@ -37,7 +66,7 @@ function InvoiceCalender(props)
             array.push(i)
         }
         setBlankDays(array)
-    },[endMonthDate])
+    },[updater])
 
     useEffect(()=>{
         const array = []
@@ -46,7 +75,7 @@ function InvoiceCalender(props)
             array.push(i)
         }
         setDays(array)
-    },[endMonthDate])
+    },[updater])
 
     const setNewMonth = (direction) =>
     {
@@ -56,8 +85,8 @@ function InvoiceCalender(props)
             setMonth(months[date.getMonth()])
             setYear(date.getFullYear())
             setArrowDisabled(false) 
+            console.log(date)
             setEndMonthDate(endMonthDateSetter())
-           
         }
         else if(direction === 'forward')
         {
@@ -73,6 +102,8 @@ function InvoiceCalender(props)
             }
             setEndMonthDate(endMonthDateSetter())
         }
+        sendSelectedDate(null)
+        setSelectedDay(null)
     }
 
     const checkDay = (day) =>
@@ -99,6 +130,28 @@ function InvoiceCalender(props)
         }
     }
 
+    const sendSelectedDate = async(day) =>
+    {
+        try
+        {
+            let paymentDate = new Date(date)
+            if(day === null)
+            {
+                paymentDate = null
+            }
+            else
+            {
+                paymentDate.setDate(day)
+                paymentDate = paymentDate.toISOString().split('T')[0]
+            }
+            await axios.put(`${ApiAddress}/updateDateOfPayment`,{date:paymentDate,id:params.id})
+        }
+        catch(ex)
+        {
+            messageContext.setMessage("Nie udało się zapisać daty opłacenia")
+        }
+    }
+
     const selectDay = (day,e) =>
     {
         if(e.target.classList.contains(styles.dayDisabled))
@@ -108,16 +161,14 @@ function InvoiceCalender(props)
         if(selectedDay == day)
         {
             setSelectedDay(null)
+            sendSelectedDate(null)
         }
         else
         {
             setSelectedDay(day)
+            sendSelectedDate(day)
         }
     }
-
-    useEffect(()=>{
-        setSelectedDay(null)
-    },[month])
 
     return(
         <section className={styles.calender}>
