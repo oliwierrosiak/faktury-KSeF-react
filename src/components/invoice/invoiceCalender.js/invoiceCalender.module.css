@@ -110,3 +110,9 @@
 {
     background: none;
 }
+.calenderBlankItem:hover,
+.calenderBlankItem
+{
+    background: none;
+    cursor: default;
+}
