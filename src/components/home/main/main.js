@@ -8,14 +8,14 @@ function Main(props)
 
     const selectedDateContext = useContext(SelectedDateContext)
 
-    const [header,setHeader] = useState('Wszytskie Faktury')
+    const [header,setHeader] = useState('Wszystkie Faktury')
 
     const months = ['Styczeń',"Luty","Marzec","Kwiecień","Maj","Czerwiec",'Lipiec',"Sierpień","Wrzesień","Październik","Listopad",'Grudzień']
 
     useEffect(()=>{
         if(selectedDateContext.date.month === null)
         {
-            setHeader('Wszytskie Faktury')
+            setHeader('Wszystkie Faktury')
         }
         else
         {
